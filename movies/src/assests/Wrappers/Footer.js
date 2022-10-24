@@ -33,6 +33,12 @@ const Wrapper = styled.div`
   .active {
     border-bottom: 2px solid white;
   }
+
+  @media screen and (max-width: 800px) {
+    .link {
+      font-size: 0.8rem;
+    }
+  }
 `;
 
 export default Wrapper;

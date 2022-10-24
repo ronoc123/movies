@@ -6,15 +6,19 @@ import Pagination from "./Pagination";
 import { useState } from "react";
 import SingleMovie from "./SingleMovie";
 
+import useGenre from "../hooks/useGenre";
+
 const Tvseries = () => {
-  const [movie, setMovie] = useState();
+  const [movie, setMovie] = useState([]);
   const [page, setPage] = useState(1);
+  const [activeGenres, setActiveGenres] = useState([]);
+  let genreForUrl = useGenre(activeGenres);
   let key = process.env.REACT_APP_MOVIES_API;
 
   const getPopularMovies = async () => {
     try {
       const { data } = await axios(
-        `https://api.themoviedb.org/3/tv/popular?api_key=${key}&language=en-US&page=${page}`
+        `https://api.themoviedb.org/3/tv/popular?api_key=${key}&language=en-US&page=${page}&with_genres=${genreForUrl}`
       );
 
       setMovie(data.results);
@@ -24,7 +28,6 @@ const Tvseries = () => {
   };
 
   const updatePage = (direction) => {
-    window.scroll(0, 0);
     if (direction === "up") {
       if (page === 10) {
         setPage(1);
@@ -41,14 +44,18 @@ const Tvseries = () => {
       }
     }
   };
+  const updateGenre = (list) => {
+    setActiveGenres(list);
+  };
 
   useEffect(() => {
     getPopularMovies();
-  }, [page]);
+    window.scroll(0, 0);
+  }, [page, activeGenres]);
 
   return (
     <Wrapper>
-      <Genres type={"tv"} />
+      <Genres type={"tv"} updateGenre={updateGenre} />
       <div className="content">
         {movie &&
           movie.map((item) => {
@@ -66,7 +73,11 @@ const Tvseries = () => {
             );
           })}
       </div>
-      <Pagination page={page} setPage={setPage} updatePage={updatePage} />
+      {movie.length >= 1 ? (
+        <Pagination page={page} setPage={setPage} updatePage={updatePage} />
+      ) : (
+        ""
+      )}
     </Wrapper>
   );
 };

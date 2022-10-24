@@ -8,7 +8,7 @@ import { BiMoviePlay } from "react-icons/bi";
 import { useState } from "react";
 
 const MainNav = () => {
-  const [active, setActive] = useState(0);
+  const [active, setActive] = useState();
   return (
     <Wrapper>
       <div className="nav-container">

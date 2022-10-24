@@ -6,7 +6,10 @@ const Wrapper = styled.div`
   border-radius: 1rem;
   padding: 0.5rem;
   position: relative;
-
+  transition: var(--transition);
+  cursor: pointer;
+  :hover {
+  }
   .rating {
     display: grid;
     place-items: center;

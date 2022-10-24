@@ -3,13 +3,18 @@ import axios from "axios";
 import Wrapper from "../assests/Wrappers/Genre";
 import SingleGenre from "./SingleGenre";
 
-const Genres = ({ type }) => {
+const Genres = ({ type, updateGenre }) => {
   let key = process.env.REACT_APP_MOVIES_API;
-  const [genre, setGenre] = useState();
+  const [genre, setGenre] = useState([]);
   const [activeGenre, setActiveGenre] = useState([]);
 
   const addGenre = (name) => {
-    if (activeGenre) setActiveGenre([...activeGenre, name]);
+    if (activeGenre.includes(name)) {
+      let tempGenre = activeGenre.filter((item) => item !== name);
+      setActiveGenre(tempGenre);
+    } else if (activeGenre) {
+      setActiveGenre([...activeGenre, name]);
+    }
   };
 
   const fetchGenre = async () => {
@@ -28,6 +33,10 @@ const Genres = ({ type }) => {
     fetchGenre();
   }, []);
 
+  useEffect(() => {
+    updateGenre(activeGenre);
+  }, [activeGenre]);
+
   return (
     <Wrapper>
       <div className="genre-container">
@@ -40,6 +49,7 @@ const Genres = ({ type }) => {
                 addGenre={addGenre}
                 id={g.id}
                 activeGenre={activeGenre}
+                setActiveGenre={setActiveGenre}
               />
             );
           })}

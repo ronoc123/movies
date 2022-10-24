@@ -22,12 +22,23 @@ const Wrapper = styled.div`
     color: black;
     padding: 0.5rem;
     border-radius: 0.5rem;
-
     cursor: pointer;
   }
   .active-genre {
+    position: relative;
     background: white;
   }
+  .hide {
+    display: none;
+  }
+  .show {
+    display: block;
+    position: absolute;
+    top: 0;
+    right: 0;
+    color: red;
+  }
+
   @media screen and (max-width: 1000px) {
     .genre-container {
       font-size: 0.65rem;

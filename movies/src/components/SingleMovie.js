@@ -1,5 +1,5 @@
 import Wrapper from "../assests/Wrappers/SingleMovie";
-import { img_300, img_500 } from "../config/config";
+import { img_300, img_500, unavailable } from "../config/config";
 import { useState } from "react";
 
 const SingleMovie = ({
@@ -13,7 +13,7 @@ const SingleMovie = ({
 }) => {
   return (
     <Wrapper>
-      <img src={`${img_300}/${poster}`} alt="" />
+      <img src={poster ? `${img_300}/${poster}` : unavailable} alt={title} />
       <div className="single-title">{title}</div>
       <div className="type-container">
         <div className="type"> {mediaType}</div>

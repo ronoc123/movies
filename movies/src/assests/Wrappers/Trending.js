@@ -6,12 +6,16 @@ const Wrapper = styled.div`
   display: grid;
   justify-content: center;
   background: var(--backgroundColor);
+
   .title {
     text-align: center;
   }
   .content {
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    width: 80%;
+    justify-self: center;
+
     gap: 2rem;
   }
 
