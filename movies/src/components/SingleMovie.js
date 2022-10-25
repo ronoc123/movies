@@ -10,9 +10,10 @@ const SingleMovie = ({
   backdrop,
   poster,
   id,
+  showSingleMovie,
 }) => {
   return (
-    <Wrapper>
+    <Wrapper onClick={() => showSingleMovie(id, mediaType)}>
       <img src={poster ? `${img_300}/${poster}` : unavailable} alt={title} />
       <div className="single-title">{title}</div>
       <div className="type-container">

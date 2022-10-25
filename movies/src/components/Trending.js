@@ -3,10 +3,12 @@ import SingleMovie from "./SingleMovie";
 import Genres from "./Genres";
 import { useState, useEffect } from "react";
 import axios from "axios";
+import SingleModal from "../components/SingleModal";
 
 const Trending = () => {
-  const [movies, setMovies] = useState("");
-
+  const [movies, setMovies] = useState([]);
+  const [showModal, setShowModal] = useState(false);
+  const [singleMovie, setSingleMovie] = useState();
   let key = process.env.REACT_APP_MOVIES_API;
 
   const getMovies = async () => {
@@ -19,6 +21,16 @@ const Trending = () => {
       console.log(error);
     }
   };
+  const showSingleMovie = async (id, mediaType) => {
+    try {
+      const { data } = await axios(
+        `https://api.themoviedb.org/3/${mediaType}/${id}?api_key=${key}&language=en-US`
+      );
+      console.log(data);
+      setSingleMovie(data);
+      setShowModal(true);
+    } catch (error) {}
+  };
 
   useEffect(() => {
     getMovies();
@@ -26,6 +38,9 @@ const Trending = () => {
 
   return (
     <Wrapper>
+      {showModal && (
+        <SingleModal setShowModal={setShowModal} singleMovie={singleMovie} />
+      )}
       <h1 className="title">Trending</h1>
       <div className="content">
         {movies &&
@@ -40,6 +55,7 @@ const Trending = () => {
                 backdrop={item.backdrop_path}
                 poster={item.poster_path}
                 id={item.id}
+                showSingleMovie={showSingleMovie}
               />
             );
           })}

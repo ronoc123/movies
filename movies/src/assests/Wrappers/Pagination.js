@@ -1,17 +1,9 @@
 import styled from "styled-components";
 
 const Wrapper = styled.div`
-  /* border: 2px solid yellow; */
-  /* padding: 1rem; */
   height: 5rem;
-  /* width: 80%; */
   margin-top: 2rem;
-  display: grid;
-
-  grid-template-columns: repeat(12, 1fr);
-  place-items: center;
-  /* width: 80%; */
-
+  display: flex;
   justify-self: center;
   .single {
     font-size: 1.5rem;
@@ -22,6 +14,8 @@ const Wrapper = styled.div`
     cursor: pointer;
   }
   .arrow {
+    display: grid;
+    place-items: center;
     padding-top: 0.5rem;
     font-size: 2rem;
     cursor: pointer;

@@ -10,6 +10,7 @@ const Search = () => {
   const [movie, setMovie] = useState([]);
   const [page, setPage] = useState(1);
   const [search, setSearch] = useState("");
+  const [numPage, setNumPage] = useState();
   let key = process.env.REACT_APP_MOVIES_API;
 
   const getPopularMovies = async () => {
@@ -18,7 +19,7 @@ const Search = () => {
         `
       https://api.themoviedb.org/3/search/movie?api_key=${key}&language=en-US&query=${search}s&page=${page}&include_adult=false`
       );
-
+      setNumPage(data.total_pages);
       setMovie(data.results);
     } catch (error) {
       console.log(error);
@@ -85,7 +86,12 @@ const Search = () => {
       {movie.length === 0 ? (
         ""
       ) : (
-        <Pagination page={page} setPage={setPage} updatePage={updatePage} />
+        <Pagination
+          page={page}
+          setPage={setPage}
+          updatePage={updatePage}
+          pageAmount={numPage}
+        />
       )}
     </Wrapper>
   );

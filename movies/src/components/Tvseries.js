@@ -7,11 +7,15 @@ import { useState } from "react";
 import SingleMovie from "./SingleMovie";
 
 import useGenre from "../hooks/useGenre";
+import SingleModal from "./SingleModal";
 
 const Tvseries = () => {
   const [movie, setMovie] = useState([]);
   const [page, setPage] = useState(1);
   const [activeGenres, setActiveGenres] = useState([]);
+  const [numPage, setNumPage] = useState();
+  const [singleMovie, setSingleMovie] = useState();
+  const [showModal, setShowModal] = useState(false);
   let genreForUrl = useGenre(activeGenres);
   let key = process.env.REACT_APP_MOVIES_API;
 
@@ -20,7 +24,7 @@ const Tvseries = () => {
       const { data } = await axios(
         `https://api.themoviedb.org/3/tv/popular?api_key=${key}&language=en-US&page=${page}&with_genres=${genreForUrl}`
       );
-
+      setNumPage(data.total_pages);
       setMovie(data.results);
     } catch (error) {
       console.log(error);
@@ -47,6 +51,18 @@ const Tvseries = () => {
   const updateGenre = (list) => {
     setActiveGenres(list);
   };
+  const showSingleMovie = async (id, mediaType) => {
+    try {
+      const { data } = await axios(
+        `https://api.themoviedb.org/3/tv/${id}?api_key=${key}&language=en-US`
+      );
+      console.log(data);
+      setSingleMovie(data);
+      setShowModal(true);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   useEffect(() => {
     getPopularMovies();
@@ -55,6 +71,9 @@ const Tvseries = () => {
 
   return (
     <Wrapper>
+      {showModal && (
+        <SingleModal setShowModal={setShowModal} singleMovie={singleMovie} />
+      )}
       <Genres type={"tv"} updateGenre={updateGenre} />
       <div className="content">
         {movie &&
@@ -69,12 +88,18 @@ const Tvseries = () => {
                 backdrop={item.backdrop_path}
                 poster={item.poster_path}
                 id={item.id}
+                showSingleMovie={showSingleMovie}
               />
             );
           })}
       </div>
       {movie.length >= 1 ? (
-        <Pagination page={page} setPage={setPage} updatePage={updatePage} />
+        <Pagination
+          page={page}
+          setPage={setPage}
+          updatePage={updatePage}
+          pageAmount={numPage}
+        />
       ) : (
         ""
       )}
