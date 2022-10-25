@@ -9,7 +9,7 @@ const Wrapper = styled.div`
     justify-self: center;
     display: grid;
     grid-template-columns: 1fr;
-    width: 40%;
+    width: 30rem;
     min-width: 20rem;
     height: 2rem;
     margin-top: 1rem;
