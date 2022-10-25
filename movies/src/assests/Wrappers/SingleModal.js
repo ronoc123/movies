@@ -89,6 +89,21 @@ const Wrapper = styled.div`
   .release {
     margin-top: 0.5rem;
   }
+  .episode {
+    span {
+      background: #d3d3d3;
+      padding: 0.5rem;
+      border-radius: 0.5rem;
+    }
+  }
+  .season {
+    span {
+      background: #d3d3d3;
+      padding: 0.5rem;
+      border-radius: 0.5rem;
+    }
+    margin-bottom: 2rem;
+  }
 
   @media screen and (max-width: 1100px) {
     .info-container {

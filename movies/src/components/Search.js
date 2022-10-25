@@ -5,12 +5,16 @@ import { useState, useEffect } from "react";
 import SingleMovie from "./SingleMovie";
 import { BsSearch } from "react-icons/bs";
 import Pagination from "./Pagination";
+import SingleModal from "./SingleModal";
+import { defaultMovie } from "../config/config";
 
 const Search = () => {
   const [movie, setMovie] = useState([]);
   const [page, setPage] = useState(1);
   const [search, setSearch] = useState("");
   const [numPage, setNumPage] = useState();
+  const [singleMovie, setSingleMovie] = useState();
+  const [showModal, setShowModal] = useState(false);
   let key = process.env.REACT_APP_MOVIES_API;
 
   const getPopularMovies = async () => {
@@ -23,6 +27,18 @@ const Search = () => {
       setMovie(data.results);
     } catch (error) {
       console.log(error);
+    }
+  };
+  const showSingleMovie = async (id, mediaType) => {
+    try {
+      const { data } = await axios(
+        `https://api.themoviedb.org/3/tv/${id}?api_key=${key}&language=en-US`
+      );
+      setSingleMovie(data);
+      setShowModal(true);
+    } catch (error) {
+      setSingleMovie(defaultMovie);
+      setShowModal(true);
     }
   };
 
@@ -52,6 +68,9 @@ const Search = () => {
 
   return (
     <Wrapper>
+      {showModal && (
+        <SingleModal setShowModal={setShowModal} singleMovie={singleMovie} />
+      )}
       <div className="search-container">
         <input
           type="text"
@@ -79,6 +98,7 @@ const Search = () => {
                 backdrop={item.backdrop_path}
                 poster={item.poster_path}
                 id={item.id}
+                showSingleMovie={showSingleMovie}
               />
             );
           })}

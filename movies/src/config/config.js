@@ -13,3 +13,14 @@ export const unavailableLandscape =
 // For Carousel
 export const noPicture =
   "https://upload.wikimedia.org/wikipedia/en/6/60/No_Picture.jpg";
+
+export const defaultMovie = {
+  original_title: "Not Found",
+  vote_average: 0,
+  release_date: "Unknown",
+  genres: ["Not Found"],
+  status: "Unknown",
+  overview: "None...",
+  revenue: 0,
+  runtime: 0,
+};

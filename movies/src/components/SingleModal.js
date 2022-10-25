@@ -23,7 +23,7 @@ const SingleModal = ({ setShowModal, singleMovie }) => {
               ? `${img_500}/${singleMovie.poster_path}`
               : unavailable
           }
-          alt={singleMovie.original_title}
+          alt={singleMovie?.original_title}
           className="image"
         />
         <div className="text-container">
@@ -36,11 +36,11 @@ const SingleModal = ({ setShowModal, singleMovie }) => {
                 <AiFillStar />
               </div>
               <div className="nums">
-                {Math.round(singleMovie.vote_average * 10) / 10} / 10
+                {Math.round(singleMovie?.vote_average * 10) / 10} / 10
               </div>
             </div>
           </div>
-          <div>{singleMovie.release_date}</div>
+          <div>{singleMovie?.release_date}</div>
           <div className="genres">
             {singleMovie.genres.map((item, i) => (
               <div className="single-genre" key={i}>
@@ -48,15 +48,31 @@ const SingleModal = ({ setShowModal, singleMovie }) => {
               </div>
             ))}
           </div>
-          <div className="release">{singleMovie.status}</div>
-          <div className="description">{singleMovie.overview}</div>
+          <div className="release">{singleMovie?.status}</div>
+          <div className="description">{singleMovie?.overview}</div>
           <div className="end">
-            <div>Budget: ${numberWithCommas(singleMovie.budget)}</div>
-            <div>Revenue: ${numberWithCommas(singleMovie.revenue)}</div>
-            <div>
-              Duration: {Math.floor(singleMovie.runtime / 60)} Hours{" "}
-              {singleMovie.runtime % 60} Minutes
-            </div>
+            {singleMovie.budget ? (
+              <div>Budget: ${numberWithCommas(singleMovie.budget)}</div>
+            ) : (
+              ""
+            )}
+            {singleMovie.runtime && singleMovie.revenue ? (
+              <div>
+                Duration: {Math.floor(singleMovie.runtime / 60)} Hours{" "}
+                {singleMovie?.runtime % 60} Minutes
+              </div>
+            ) : (
+              <div className="season">
+                <span>{singleMovie.number_of_seasons} Season</span>
+              </div>
+            )}
+            {singleMovie.revenue && singleMovie.runtime ? (
+              <div>Revenue: ${numberWithCommas(singleMovie.revenue)}</div>
+            ) : (
+              <div className="episode">
+                <span>{singleMovie.number_of_episodes} Episodes</span>
+              </div>
+            )}
           </div>
         </div>
       </div>
