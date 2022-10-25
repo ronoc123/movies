@@ -55,7 +55,7 @@ const Tvseries = () => {
   const showSingleMovie = async (id, mediaType) => {
     try {
       const { data } = await axios(
-        `https://api.themoviedb.org/3/movie/${id}?api_key=${key}&language=en-US`
+        `https://api.themoviedb.org/3/tv/${id}?api_key=${key}&language=en-US`
       );
       console.log(data);
       setSingleMovie(data);
