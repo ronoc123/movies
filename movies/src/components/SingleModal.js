@@ -56,21 +56,29 @@ const SingleModal = ({ setShowModal, singleMovie }) => {
             ) : (
               ""
             )}
-            {singleMovie.runtime && singleMovie.revenue ? (
+            {singleMovie.runtime ? (
               <div>
                 Duration: {Math.floor(singleMovie.runtime / 60)} Hours{" "}
                 {singleMovie?.runtime % 60} Minutes
               </div>
             ) : (
               <div className="season">
-                <span>{singleMovie.number_of_seasons} Season</span>
+                <span>
+                  {singleMovie.number_of_seasons
+                    ? singleMovie.number_of_seasons + " Season"
+                    : "Duration Unknown"}
+                </span>
               </div>
             )}
-            {singleMovie.revenue && singleMovie.runtime ? (
+            {singleMovie.revenue ? (
               <div>Revenue: ${numberWithCommas(singleMovie.revenue)}</div>
             ) : (
               <div className="episode">
-                <span>{singleMovie.number_of_episodes} Episodes</span>
+                <span>
+                  {singleMovie.number_of_episodes
+                    ? singleMovie.number_of_episodes + " Episodes"
+                    : "Revenue Unknown"}{" "}
+                </span>
               </div>
             )}
           </div>

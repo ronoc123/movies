@@ -90,6 +90,7 @@ const Wrapper = styled.div`
     margin-top: 0.5rem;
   }
   .episode {
+    margin-top: 1rem;
     span {
       background: #d3d3d3;
       padding: 0.5rem;
