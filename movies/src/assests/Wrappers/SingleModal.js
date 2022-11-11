@@ -103,7 +103,7 @@ const Wrapper = styled.div`
       padding: 0.5rem;
       border-radius: 0.5rem;
     }
-    margin-bottom: 2rem;
+    margin-bottom: 1rem;
   }
   .video-link {
     background: #add8e6;
@@ -143,7 +143,27 @@ const Wrapper = styled.div`
       font-size: 1.8rem;
     }
     .nums {
-      font-size: 1.3rem;
+      font-size: 1rem;
+    }
+    .rec-container {
+      font-size: 0.8rem;
+    }
+    .episode,
+    .season,
+    .end {
+      font-size: 1rem;
+    }
+    .single-genre,
+    .video-link {
+      font-size: 0.7rem;
+      padding: 0.3rem;
+      border-radius: 0.3rem;
+    }
+    .description {
+      font-size: 0.8rem;
+    }
+    .text-title {
+      font-size: 1rem;
     }
   }
 `;
