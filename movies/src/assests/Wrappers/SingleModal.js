@@ -26,8 +26,8 @@ const Wrapper = styled.div`
   }
   .close-icon {
     position: absolute;
-    top: 0.5rem;
-    right: 1rem;
+    top: 0.2rem;
+    right: 0.2rem;
     font-size: 2rem;
     color: darkred;
     cursor: pointer;
@@ -123,9 +123,6 @@ const Wrapper = styled.div`
   }
 
   @media screen and (max-width: 1100px) {
-    .info-container {
-      /* min-height: 45%; */
-    }
   }
 
   @media screen and (max-width: 800px) {
@@ -144,6 +141,7 @@ const Wrapper = styled.div`
     }
     .nums {
       font-size: 1rem;
+      justify-self: left;
     }
     .rec-container {
       font-size: 0.8rem;
