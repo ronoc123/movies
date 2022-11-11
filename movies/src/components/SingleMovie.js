@@ -1,6 +1,5 @@
 import Wrapper from "../assests/Wrappers/SingleMovie";
 import { img_300, img_500, unavailable } from "../config/config";
-import { useState } from "react";
 
 const SingleMovie = ({
   title,

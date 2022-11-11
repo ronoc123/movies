@@ -16,6 +16,7 @@ const Tvseries = () => {
   const [numPage, setNumPage] = useState();
   const [singleMovie, setSingleMovie] = useState();
   const [showModal, setShowModal] = useState(false);
+
   let genreForUrl = useGenre(activeGenres);
   let key = process.env.REACT_APP_MOVIES_API;
 
@@ -55,9 +56,10 @@ const Tvseries = () => {
   const showSingleMovie = async (id, mediaType) => {
     try {
       const { data } = await axios(
-        `https://api.themoviedb.org/3/tv/${id}?api_key=${key}&language=en-US`
+        `https://api.themoviedb.org/3/${
+          mediaType ? mediaType : "tv"
+        }/${id}?api_key=${key}&language=en-US`
       );
-      console.log(data);
       setSingleMovie(data);
       setShowModal(true);
     } catch (error) {
@@ -73,7 +75,12 @@ const Tvseries = () => {
   return (
     <Wrapper>
       {showModal && (
-        <SingleModal setShowModal={setShowModal} singleMovie={singleMovie} />
+        <SingleModal
+          setShowModal={setShowModal}
+          singleMovie={singleMovie}
+          type={"tv"}
+          showSingleMovie={showSingleMovie}
+        />
       )}
       <Genres type={"tv"} updateGenre={updateGenre} />
       <div className="content">
@@ -83,7 +90,7 @@ const Tvseries = () => {
               <SingleMovie
                 key={item.id}
                 title={item.title || item.name}
-                mediaType={item.media_type || "Tv"}
+                mediaType={item.media_type || "tv"}
                 release={item.first_air_date || item.release_date}
                 rating={item.vote_average}
                 backdrop={item.backdrop_path}

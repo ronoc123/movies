@@ -19,7 +19,8 @@ const Wrapper = styled.div`
     margin-top: 2rem;
     display: grid;
     justify-self: center;
-    width: 75%;
+    max-width: 80%;
+
     grid-template-columns: 1fr 1fr 1fr 1fr;
     gap: 2rem;
     min-height: 40vh;

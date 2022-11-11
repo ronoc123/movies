@@ -3,7 +3,6 @@ import Wrapper from "../assests/Wrappers/Search";
 import axios from "axios";
 import { useState, useEffect } from "react";
 import SingleMovie from "./SingleMovie";
-import { BsSearch } from "react-icons/bs";
 import Pagination from "./Pagination";
 import SingleModal from "./SingleModal";
 import { defaultMovie } from "../config/config";
@@ -32,8 +31,9 @@ const Search = () => {
   const showSingleMovie = async (id, mediaType) => {
     try {
       const { data } = await axios(
-        `https://api.themoviedb.org/3/tv/${id}?api_key=${key}&language=en-US`
+        `https://api.themoviedb.org/3/movie/${id}?api_key=${key}&language=en-US`
       );
+
       setSingleMovie(data);
       setShowModal(true);
     } catch (error) {
@@ -64,12 +64,16 @@ const Search = () => {
     if (search) {
       getPopularMovies();
     }
-  }, [search]);
+  }, [search, page]);
 
   return (
     <Wrapper>
       {showModal && (
-        <SingleModal setShowModal={setShowModal} singleMovie={singleMovie} />
+        <SingleModal
+          setShowModal={setShowModal}
+          singleMovie={singleMovie}
+          showSingleMovie={showSingleMovie}
+        />
       )}
       <div className="search-container">
         <input
@@ -92,7 +96,7 @@ const Search = () => {
               <SingleMovie
                 key={item.id}
                 title={item.title || item.name}
-                mediaType={item.media_type || "Movie"}
+                mediaType={item.media_type || "movie"}
                 release={item.first_air_date || item.release_date}
                 rating={item.vote_average}
                 backdrop={item.backdrop_path}

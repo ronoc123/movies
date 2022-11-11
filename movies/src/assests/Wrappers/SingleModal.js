@@ -16,7 +16,7 @@ const Wrapper = styled.div`
     width: 80%;
     max-width: 80rem;
     background: white;
-    min-height: 70%;
+    /* min-height: 70%; */
     color: black;
     display: grid;
     grid-template-columns: 1fr 2fr;
@@ -78,7 +78,7 @@ const Wrapper = styled.div`
     padding: 0.5rem;
   }
   .end {
-    margin-top: 5rem;
+    margin-top: 2rem;
     font-size: 1.3rem;
 
     padding-bottom: 2rem;
@@ -105,16 +105,32 @@ const Wrapper = styled.div`
     }
     margin-bottom: 2rem;
   }
+  .video-link {
+    background: #add8e6;
+    color: black;
+    padding: 0.5rem;
+    border-radius: 0.5rem;
+  }
+  .rec {
+    font-weight: 500;
+    cursor: pointer;
+  }
+  .rec-container {
+    /* margin-top: 2rem; */
+    display: flex;
+    flex-wrap: wrap;
+    font-size: 1.2rem;
+  }
 
   @media screen and (max-width: 1100px) {
     .info-container {
-      min-height: 45%;
+      /* min-height: 45%; */
     }
   }
 
   @media screen and (max-width: 800px) {
     .info-container {
-      min-height: 60%;
+      /* min-height: 60%; */
       grid-template-columns: 1fr;
     }
     .image {

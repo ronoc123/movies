@@ -73,7 +73,11 @@ const Movies = () => {
   return (
     <Wrapper>
       {showModal && (
-        <SingleModal setShowModal={setShowModal} singleMovie={singleMovie} />
+        <SingleModal
+          setShowModal={setShowModal}
+          singleMovie={singleMovie}
+          showSingleMovie={showSingleMovie}
+        />
       )}
       <Genres type={"movie"} updateGenre={updateGenre} />
       <div className="content">

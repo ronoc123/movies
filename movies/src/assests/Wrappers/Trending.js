@@ -13,7 +13,7 @@ const Wrapper = styled.div`
   .content {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr;
-    width: 80%;
+    max-width: 80%;
     justify-self: center;
 
     gap: 2rem;
