@@ -4,3 +4,7 @@ insert into Movie(id, name, rating, description)
 values(2, 'saw', 6, 'this is a new movie');
 insert into Movie(id, name, rating, description)
 values(3, 'saw', 7, 'this is a new movie');
+
+
+insert into User(id, name, password, email)
+values(1, 'conorkamp', '123456', 'conor@gmail.com');

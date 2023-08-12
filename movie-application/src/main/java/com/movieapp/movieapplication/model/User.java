@@ -25,6 +25,13 @@ public class User {
 
     private LocalDateTime userCreationDate;
 
+    public User(String name, String password, String email) {
+        super();
+        this.name = name;
+        this.password = password;
+        this.email = email;
+    }
+
     @PrePersist
     public void prePersist() {
         userCreationDate = LocalDateTime.now();
