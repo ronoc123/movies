@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.Size;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 public class User {
@@ -25,8 +26,15 @@ public class User {
 
     private LocalDateTime userCreationDate;
 
-    public User() {
+    @OneToMany(mappedBy = "user")
+    @JsonIgnore
+    private List<Movie> movies;
+
+    protected User() {
     }
+
+
+
 
     public User(String name, String password, String email) {
         super();
@@ -39,6 +47,13 @@ public class User {
     @PrePersist
     public void prePersist() {
         userCreationDate = LocalDateTime.now();
+    }
+    public List<Movie> getMovies() {
+        return movies;
+    }
+
+    public void setMovies(List<Movie> movies) {
+        this.movies = movies;
     }
 
     public Integer getId() {

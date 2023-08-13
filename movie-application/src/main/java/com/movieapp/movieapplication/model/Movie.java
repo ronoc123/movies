@@ -1,8 +1,8 @@
 package com.movieapp.movieapplication.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import jakarta.persistence.*;
+import jakarta.validation.constraints.Size;
 
 @Entity
 public class Movie {
@@ -17,8 +17,12 @@ public class Movie {
 
     private Integer rating;
 
+    @Size(max = 50)
     private String description;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JsonIgnore
+    private User user;
 
     public Movie(String name, Integer rating, String description) {
         this.name = name;
@@ -28,6 +32,14 @@ public class Movie {
 
     public Integer getId() {
         return id;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 
     public void setId(Integer id) {
