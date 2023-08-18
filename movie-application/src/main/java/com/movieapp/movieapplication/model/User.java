@@ -3,12 +3,16 @@ package com.movieapp.movieapplication.model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Size;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import java.time.LocalDateTime;
+import java.util.Collection;
 import java.util.List;
 
 @Entity
-public class User {
+public class User implements UserDetails {
 
     @Id
     @GeneratedValue
@@ -19,13 +23,15 @@ public class User {
 
     @JsonIgnore
     @Size(min = 6, max = 15)
-    private  String password;
+    private String password;
 
     @Column(unique = true)
     private String email;
 
     private LocalDateTime userCreationDate;
 
+    @Enumerated(EnumType.STRING)
+    private Role role;
     @OneToMany(mappedBy = "user")
     @JsonIgnore
     private List<Movie> movies;
@@ -47,6 +53,7 @@ public class User {
     @PrePersist
     public void prePersist() {
         userCreationDate = LocalDateTime.now();
+        role = Role.USER;
     }
     public List<Movie> getMovies() {
         return movies;
@@ -72,8 +79,39 @@ public class User {
         this.name = name;
     }
 
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return List.of(new SimpleGrantedAuthority(role.name()));
+    }
+
+    @Override
     public String getPassword() {
         return password;
+    }
+
+    @Override
+    public String getUsername() {
+        return email;
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return true;
     }
 
     public void setPassword(String password) {
