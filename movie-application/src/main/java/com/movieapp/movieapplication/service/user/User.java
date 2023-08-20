@@ -1,5 +1,7 @@
 package com.movieapp.movieapplication.service.user;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.movieapp.movieapplication.model.Movie;
 import com.movieapp.movieapplication.service.token.Token;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -33,6 +35,9 @@ public class User implements UserDetails {
 
   @OneToMany(mappedBy = "user")
   private List<Token> tokens;
+  @OneToMany(mappedBy = "user")
+  @JsonIgnore
+  private List<Movie> movies;
 
   @Override
   public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -67,5 +72,9 @@ public class User implements UserDetails {
   @Override
   public boolean isEnabled() {
     return true;
+  }
+  @PrePersist
+  public void prePersist() {
+    role = Role.USER;
   }
 }
