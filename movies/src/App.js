@@ -5,11 +5,13 @@ import Search from "./components/Search";
 import Movies from "./components/Movies";
 import Tvseries from "./components/Tvseries";
 import MainNav from "./components/MainNav";
+import PrimarySearchAppBar from "./components/SearchBar";
 
 function App() {
   return (
     <BrowserRouter>
-      <Header />
+      {/* <Header /> */}
+      <PrimarySearchAppBar />
       <div className="container">
         <Routes>
           <Route index element={<Trending />}></Route>
