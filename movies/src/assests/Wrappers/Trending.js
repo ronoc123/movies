@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 const Wrapper = styled.div`
-  padding-top: 4rem;
+  padding-top: 1rem;
   padding-bottom: 7rem;
   display: grid;
   justify-content: center;

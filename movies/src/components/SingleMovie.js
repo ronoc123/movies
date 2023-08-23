@@ -22,6 +22,7 @@ const SingleMovie = ({
       <div className={rating > 7 ? "rating gold" : "rating silver"}>
         {Math.round(rating * 10) / 10}
       </div>
+      <div></div>
     </Wrapper>
   );
 };
