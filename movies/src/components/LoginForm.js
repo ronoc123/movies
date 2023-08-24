@@ -53,7 +53,7 @@ export default function LoginForm() {
         {user === true ? "Login" : "Register"}
       </button>
 
-      <div>
+      <div className="text">
         Already a member? <span className="login-btn">Login</span>
       </div>
     </Box>

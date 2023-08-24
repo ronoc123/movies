@@ -30,6 +30,8 @@ const Wrapper = styled.div`
     padding: 3rem;
     border-radius: 0.5rem;
     box-shadow: var(--shadow-1);
+    display: grid;
+    place-items: center;
   }
   .center {
     text-align: center;
@@ -38,7 +40,11 @@ const Wrapper = styled.div`
   }
   .login-btn {
     cursor: pointer;
+
     font-weight: 500;
+  }
+  .text {
+    margin-top: 1rem;
   }
   .login-button {
     background-color: #121212; /* Yellow */
@@ -48,7 +54,8 @@ const Wrapper = styled.div`
     border-radius: 4px; /* Add border radius */
     font-size: 16px; /* Set font size */
     cursor: pointer; /* Change cursor on hover */
-    transition: background 0.3s; /* Add smooth transition on background change */
+    transition: background 0.3s;
+    margin-top: 1rem; /* Add smooth transition on background change */
   }
 
   /* Darken the button on hover */
