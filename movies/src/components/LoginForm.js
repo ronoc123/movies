@@ -4,6 +4,7 @@ import TextField from "@mui/material/TextField";
 import { useState, useEffect } from "react";
 import { useAppContext } from "../Context/appContext";
 import { useNavigate } from "react-router-dom";
+import LoadingScreen from "./Loading";
 
 export default function LoginForm() {
   const navigate = useNavigate();
@@ -40,7 +41,7 @@ export default function LoginForm() {
     if (currentUser) {
       setTimeout(() => {
         navigate("/");
-      }, 3000);
+      }, 200);
     }
   }, [currentUser, navigate]);
 

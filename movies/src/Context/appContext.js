@@ -14,6 +14,8 @@ const initialState = {
   isLoading: false,
   user: user ? JSON.parse(user) : null,
   token: token,
+  alertText: "",
+  alertType: "",
 };
 
 const AppContext = React.createContext();
@@ -32,6 +34,8 @@ const AppProvider = ({ children }) => {
     localStorage.setItem("user", JSON.stringify(user));
     localStorage.setItem("token", token);
   };
+
+  const userLogout = () => {};
 
   const userLogin = async (endPoint, currentUser) => {
     dispatch({ type: SETUP_USER_BEGIN });

@@ -6,11 +6,15 @@ import Tvseries from "./components/Tvseries";
 import MainNav from "./components/MainNav";
 import PrimarySearchAppBar from "./components/SearchBar";
 import LoginPage from "./Pages/LoginPage";
+import LoadingScreen from "./components/Loading";
+import { useAppContext } from "./Context/appContext";
 
 function App() {
+  const { isLoading } = useAppContext();
   return (
     <BrowserRouter>
       {/* <Header /> */}
+      {isLoading && <LoadingScreen />}
       <PrimarySearchAppBar />
       <div className="container">
         <Routes>
