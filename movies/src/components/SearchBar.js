@@ -72,7 +72,11 @@ export default function PrimarySearchAppBar() {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
 
-  const { userLogout, user } = useAppContext();
+  const { userLogout, user, changeSidebar } = useAppContext();
+
+  const toggleSidebar = () => {
+    changeSidebar();
+  };
 
   const isMenuOpen = Boolean(anchorEl);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
@@ -187,6 +191,18 @@ export default function PrimarySearchAppBar() {
         </IconButton>
         <p>Profile</p>
       </MenuItem>
+      <MenuItem onClick={handleProfileMenuOpen}>
+        <IconButton
+          size="large"
+          aria-label="account of current user"
+          aria-controls="primary-search-account-menu"
+          aria-haspopup="true"
+          color="inherit"
+        >
+          <AccountCircle />
+        </IconButton>
+        <p>Profile</p>
+      </MenuItem>
     </Menu>
   );
 
@@ -202,7 +218,7 @@ export default function PrimarySearchAppBar() {
               aria-label="open drawer"
               sx={{ mr: 2 }}
             >
-              <MenuIcon />
+              <MenuIcon onClick={toggleSidebar} />
             </IconButton>
             <Typography
               variant="h6"
@@ -251,6 +267,7 @@ export default function PrimarySearchAppBar() {
                 color="inherit"
               >
                 <AccountCircle />
+                {/* <span>{user}</span> */}
               </IconButton>
             </Box>
             <Box sx={{ display: { xs: "flex", md: "none" } }}>
