@@ -1,6 +1,7 @@
 package com.movieapp.movieapplication.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.movieapp.movieapplication.service.user.User;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Size;
 
