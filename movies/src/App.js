@@ -8,7 +8,7 @@ import PrimarySearchAppBar from "./components/SearchBar";
 import LoginPage from "./Pages/LoginPage";
 import LoadingScreen from "./components/Loading";
 import { useAppContext } from "./Context/appContext";
-
+import Sidebar from "./components/Sidebar.js";
 function App() {
   const { isLoading } = useAppContext();
   return (
@@ -16,6 +16,7 @@ function App() {
       {/* <Header /> */}
       {isLoading && <LoadingScreen />}
       <PrimarySearchAppBar />
+      <Sidebar />
       <div className="container">
         <Routes>
           <Route index element={<Trending />}></Route>

@@ -26,7 +26,6 @@ const LoadingScreen = () => {
       }}
     >
       <FaSpinner className="spin-icon" />
-      {/* You can customize the loading message or add a spinner here */}
     </div>
   );
 };

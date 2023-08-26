@@ -6,6 +6,8 @@ import {
   SETUP_USER_BEGIN,
   SETUP_USER_ERROR,
   SETUP_USER_SUCCESS,
+  LOGOUT_USER,
+  CHANGE_SIDEBAR,
 } from "./actions.js";
 const token = localStorage.getItem("token");
 const user = localStorage.getItem("user");
@@ -16,6 +18,7 @@ const initialState = {
   token: token,
   alertText: "",
   alertType: "",
+  isSidebarOpen: false,
 };
 
 const AppContext = React.createContext();
@@ -34,8 +37,15 @@ const AppProvider = ({ children }) => {
     localStorage.setItem("user", JSON.stringify(user));
     localStorage.setItem("token", token);
   };
+  const removeUserFromLocalStorage = () => {
+    localStorage.removeItem("user");
+    localStorage.removeItem("token");
+  };
 
-  const userLogout = () => {};
+  const userLogout = () => {
+    dispatch({ type: LOGOUT_USER });
+    removeUserFromLocalStorage();
+  };
 
   const userLogin = async (endPoint, currentUser) => {
     dispatch({ type: SETUP_USER_BEGIN });
@@ -52,9 +62,12 @@ const AppProvider = ({ children }) => {
       });
       addUserToLocalStorage(currentUser.email, access_token);
     } catch (error) {
-      console.log(error);
       dispatch({ type: SETUP_USER_ERROR });
     }
+  };
+
+  const changeSidebar = () => {
+    dispatch({ type: "CHANGE_SIDEBAR", payload: state.isSidebarOpen });
   };
 
   return (
@@ -62,6 +75,8 @@ const AppProvider = ({ children }) => {
       value={{
         ...state,
         userLogin,
+        userLogout,
+        changeSidebar,
       }}
     >
       {children}
