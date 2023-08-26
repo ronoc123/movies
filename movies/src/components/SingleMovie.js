@@ -1,6 +1,6 @@
 import Wrapper from "../assests/Wrappers/SingleMovie";
 import { img_300, img_500, unavailable } from "../config/config";
-
+import { HiPlusSm } from "react-icons/hi";
 const SingleMovie = ({
   title,
   mediaType,
@@ -21,6 +21,9 @@ const SingleMovie = ({
       </div>
       <div className={rating > 7 ? "rating gold" : "rating silver"}>
         {Math.round(rating * 10) / 10}
+      </div>
+      <div className="add-icon">
+        <HiPlusSm />
       </div>
       <div></div>
     </Wrapper>

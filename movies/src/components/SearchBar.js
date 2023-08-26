@@ -93,6 +93,11 @@ export default function PrimarySearchAppBar() {
     setAnchorEl(null);
     handleMobileMenuClose();
   };
+  const handleMenuCloseProfile = () => {
+    setAnchorEl(null);
+    handleMobileMenuClose();
+    navigate("/profile");
+  };
 
   const handleMobileMenuOpen = (event) => {
     setMobileMoreAnchorEl(event.currentTarget);
@@ -129,8 +134,8 @@ export default function PrimarySearchAppBar() {
     >
       {user && (
         <>
-          <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
-          <MenuItem onClick={handleMenuClose}>My account</MenuItem>
+          <MenuItem onClick={handleMenuCloseProfile}>My Profile</MenuItem>
+          {/* <MenuItem onClick={handleMenuClose}>My account</MenuItem> */}
           <MenuItem onClick={handleLogout}>Logout</MenuItem>
         </>
       )}
@@ -217,8 +222,9 @@ export default function PrimarySearchAppBar() {
               color="inherit"
               aria-label="open drawer"
               sx={{ mr: 2 }}
+              onClick={toggleSidebar}
             >
-              <MenuIcon onClick={toggleSidebar} />
+              <MenuIcon />
             </IconButton>
             <Typography
               variant="h6"

@@ -47,6 +47,46 @@ const Wrapper = styled.div`
   .release {
     justify-self: end;
   }
+  .add-icon {
+    position: absolute;
+    top: -1rem;
+    left: -1rem;
+    font-size: 2rem;
+    color: black;
+    height: 42px;
+    width: 42px;
+    background: white;
+    border-radius: 50%;
+    display: grid;
+    place-items: center;
+  }
+  .add-icon:hover {
+    background: #ffd700;
+    color: black;
+    animation: spinBack 0.2s linear forwards;
+  }
+
+  .spin-back-animation {
+    animation: spinBack 0.2s linear forwards;
+  }
+
+  @keyframes spin {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(45deg);
+    }
+  }
+
+  @keyframes spinBack {
+    0% {
+      transform: rotate(180deg);
+    }
+    100% {
+      transform: rotate(0deg);
+    }
+  }
 `;
 
 export default Wrapper;

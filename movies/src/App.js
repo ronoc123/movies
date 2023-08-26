@@ -9,6 +9,7 @@ import LoginPage from "./Pages/LoginPage";
 import LoadingScreen from "./components/Loading";
 import { useAppContext } from "./Context/appContext";
 import Sidebar from "./components/Sidebar.js";
+import ProfilePage from "./Pages/ProfilePage";
 function App() {
   const { isLoading } = useAppContext();
   return (
@@ -24,6 +25,7 @@ function App() {
           <Route path="/movie" element={<Movies />}></Route>
           <Route path="/tv" element={<Tvseries />}></Route>
           <Route path="/search" element={<Search />}></Route>
+          <Route path="/profile" element={<ProfilePage />}></Route>
         </Routes>
       </div>
       <MainNav />
