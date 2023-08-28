@@ -14,9 +14,21 @@ public class Movie {
     @Id
     @GeneratedValue()
     private Integer id;
-    private String name;
+    private String title;
 
-    private Integer rating;
+//    fields I need to add
+//    poster
+    private String poster;
+//    Media Type
+    private String mediaType;
+//    release
+    private String releaseDate;
+
+    private Long personalRating;
+
+//    person rating
+
+    private Long rating;
 
     @Size(max = 50)
     private String description;
@@ -25,11 +37,58 @@ public class Movie {
     @JsonIgnore
     private User user;
 
-    public Movie(String name, Integer rating, String description) {
-        this.name = name;
+    public Movie(String title, Long rating, String description, String releaseDate, String mediaType, Long personalRating, String poster) {
+        this.title = title;
         this.rating = rating;
         this.description = description;
+        this.poster = poster;
+        this.personalRating = personalRating;
+        this.mediaType = mediaType;
+        this.releaseDate = releaseDate;
+
     }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public String getPoster() {
+        return poster;
+    }
+
+    public void setPoster(String poster) {
+        this.poster = poster;
+    }
+
+    public String getMediaType() {
+        return mediaType;
+    }
+
+    public void setMediaType(String mediaType) {
+        this.mediaType = mediaType;
+    }
+
+    public String getReleaseDate() {
+        return releaseDate;
+    }
+
+    public void setReleaseDate(String releaseDate) {
+        this.releaseDate = releaseDate;
+    }
+
+    public Long getPersonalRating() {
+        return personalRating;
+    }
+
+    public void setPersonalRating(Long personalRating) {
+        this.personalRating = personalRating;
+    }
+
+
 
     public Integer getId() {
         return id;
@@ -48,18 +107,18 @@ public class Movie {
     }
 
     public String getName() {
-        return name;
+        return title;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setName(String title) {
+        this.title = title;
     }
 
-    public Integer getRating() {
+    public Long getRating() {
         return rating;
     }
 
-    public void setRating(Integer rating) {
+    public void setRating(Long rating) {
         this.rating = rating;
     }
 
@@ -75,9 +134,14 @@ public class Movie {
     public String toString() {
         return "Movie{" +
                 "id=" + id +
-                ", name='" + name + '\'' +
+                ", title='" + title + '\'' +
+                ", poster='" + poster + '\'' +
+                ", mediaType='" + mediaType + '\'' +
+                ", releaseDate=" + releaseDate +
+                ", personalRating=" + personalRating +
                 ", rating=" + rating +
                 ", description='" + description + '\'' +
+                ", user=" + user +
                 '}';
     }
 

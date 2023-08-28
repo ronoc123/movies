@@ -7,7 +7,7 @@ const Wrapper = styled.div`
   padding: 0.5rem;
   position: relative;
   transition: var(--transition);
-  cursor: pointer;
+
   :hover {
   }
   .rating {
@@ -24,6 +24,7 @@ const Wrapper = styled.div`
   }
   img {
     width: 100%;
+    cursor: pointer;
   }
 
   .gold {
@@ -59,6 +60,7 @@ const Wrapper = styled.div`
     border-radius: 50%;
     display: grid;
     place-items: center;
+    cursor: pointer;
   }
   .add-icon:hover {
     background: #ffd700;

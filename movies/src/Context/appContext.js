@@ -8,6 +8,9 @@ import {
   SETUP_USER_SUCCESS,
   LOGOUT_USER,
   CHANGE_SIDEBAR,
+  ADD_MOVIE_BEGIN,
+  ADD_MOVIE_SUCCESS,
+  ADD_MOVIE_ERROR,
 } from "./actions.js";
 const token = localStorage.getItem("token");
 const user = localStorage.getItem("user");
@@ -66,6 +69,14 @@ const AppProvider = ({ children }) => {
     }
   };
 
+  const addMovieToWatchList = async (movie) => {
+    dispatch({ type: ADD_MOVIE_BEGIN });
+    try {
+    } catch (error) {
+      dispatch({ type: ADD_MOVIE_ERROR });
+    }
+  };
+
   const changeSidebar = () => {
     dispatch({ type: "CHANGE_SIDEBAR", payload: state.isSidebarOpen });
   };
@@ -77,6 +88,7 @@ const AppProvider = ({ children }) => {
         userLogin,
         userLogout,
         changeSidebar,
+        addMovieToWatchList,
       }}
     >
       {children}

@@ -83,6 +83,7 @@ const Tvseries = () => {
         />
       )}
       <Genres type={"tv"} updateGenre={updateGenre} />
+
       <div className="content">
         {movie &&
           movie.map((item) => {
@@ -96,6 +97,7 @@ const Tvseries = () => {
                 backdrop={item.backdrop_path}
                 poster={item.poster_path}
                 id={item.id}
+                description={item.description}
                 showSingleMovie={showSingleMovie}
               />
             );

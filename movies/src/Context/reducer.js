@@ -5,6 +5,9 @@ import {
   SETUP_USER_SUCCESS,
   LOGOUT_USER,
   CHANGE_SIDEBAR,
+  ADD_MOVIE_BEGIN,
+  ADD_MOVIE_SUCCESS,
+  ADD_MOVIE_ERROR,
 } from "./actions";
 const reducer = (state, action) => {
   // action example
