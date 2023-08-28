@@ -52,18 +52,31 @@ const AppProvider = ({ children }) => {
 
   const userLogin = async (endPoint, currentUser) => {
     dispatch({ type: SETUP_USER_BEGIN });
-    console.log("step 2");
+    console.log(currentUser);
     try {
-      const response = await axios.post(
-        `http://localhost:8080/api/v1/auth/${endPoint}`,
-        currentUser
-      );
-      const { access_token } = response.data;
-      dispatch({
-        type: SETUP_USER_SUCCESS,
-        payload: { access_token: access_token, user: currentUser.email },
-      });
-      addUserToLocalStorage(currentUser.email, access_token);
+      if (endPoint === "authenticate") {
+        const response = await axios.post(
+          `http://localhost:8080/api/v1/auth/${endPoint}`,
+          currentUser
+        );
+        const { access_token } = response.data;
+        dispatch({
+          type: SETUP_USER_SUCCESS,
+          payload: { access_token: access_token, user: currentUser.email },
+        });
+        addUserToLocalStorage(currentUser.email, access_token);
+      } else {
+        const response = await axios.post(
+          `http://localhost:8080/api/v1/auth/${endPoint}`,
+          currentUser
+        );
+        const { access_token } = response.data;
+        dispatch({
+          type: SETUP_USER_SUCCESS,
+          payload: { access_token: access_token, user: currentUser.email },
+        });
+        addUserToLocalStorage(currentUser.email, access_token);
+      }
     } catch (error) {
       dispatch({ type: SETUP_USER_ERROR });
     }

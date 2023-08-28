@@ -17,22 +17,16 @@ export default function LoginForm() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    let currentUser = {
-      firstname: firstName,
-      password: password,
-      email: email,
-      lastname: lastName,
-    };
 
-    let endPoint = user === true ? "authenticate" : "register";
-    if (user) {
+    let endPoint = user === true ? "register" : "authenticate";
+    if (!user) {
       userLogin(endPoint, { email: email, password: password });
     } else {
       userLogin(endPoint, {
         firstname: firstName,
-        password: password,
-        email: email,
         lastname: lastName,
+        email: email,
+        password: password,
       });
     }
   };

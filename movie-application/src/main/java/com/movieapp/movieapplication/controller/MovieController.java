@@ -64,9 +64,14 @@ public class MovieController {
         String token = authorizationHeader.substring("Bearer ".length());
         String username = jwtService.extractUsername(token);
         Optional<User> user = userRepository.findByEmail(username);
-
         if (user.isEmpty())
             throw new RuntimeException("User not Found");
+
+        Optional<List<Movie>> optionalMovies = Optional.of(user.get().getMovies());
+        List<Movie> movieList = optionalMovies.get();
+        boolean isValidMovie = movieList.stream().anyMatch(m -> m.getTitle().equals(movie.getTitle()));
+        if (isValidMovie)
+            throw new RuntimeException("Movie Already Saved");
 
         movie.setUser(user.get());
         movieRepository.save(movie);
@@ -88,6 +93,7 @@ public class MovieController {
         Optional<User> user = userRepository.findByEmail(username);
         if (user.isEmpty())
             throw new RuntimeException("unauthorized");
+
 
         Optional<Movie> movieToDelete = user.get().getMovies().stream().filter(u -> u.getId().equals(id))
                 .findFirst();
