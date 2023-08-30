@@ -1,8 +1,9 @@
 import styled from "styled-components";
 
 const Wrapper = styled.div`
-  background: white;
-  color: black;
+  /* background: white; */
+  background: #2b2d31;
+  color: white;
   border-radius: 1rem;
   padding: 0.5rem;
   position: relative;
@@ -29,10 +30,12 @@ const Wrapper = styled.div`
 
   .gold {
     background: #ffd700;
+    color: black;
   }
 
   .silver {
     background: #c0c0c0;
+    color: black;
   }
   .single-title {
     text-align: center;
