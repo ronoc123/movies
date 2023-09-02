@@ -12,7 +12,9 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Data
 @Builder
@@ -35,10 +37,28 @@ public class User implements UserDetails {
   private Role role;
 
   @OneToMany(mappedBy = "user")
+  @JsonIgnore
   private List<Token> tokens;
   @OneToMany(mappedBy = "user")
   @JsonIgnore
   private List<Movie> movies;
+
+  @ManyToMany
+  @JoinTable(
+          name = "friendship",
+          joinColumns = @JoinColumn(name = "user_id"),
+          inverseJoinColumns = @JoinColumn(name = "friend_id")
+  )
+  @JsonIgnore
+  private Set<User> friends = new HashSet<>();
+
+  public Set<User> getFriends() {
+    return friends;
+  }
+
+  public void setFriends(Set<User> friends) {
+    this.friends = friends;
+  }
 
   @Override
   public Collection<? extends GrantedAuthority> getAuthorities() {

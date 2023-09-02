@@ -1,8 +1,8 @@
 import styled from "styled-components";
 
 const Wrapper = styled.div`
-  display: grid;
-  place-items: center;
+  display: flex;
+  justify-content: center;
 
   .profile-container {
     margin-top: 3rem;

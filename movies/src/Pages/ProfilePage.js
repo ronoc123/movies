@@ -8,9 +8,16 @@ const ProfilePage = () => {
   return (
     <Wrapper>
       <div className="profile-container">
-        <WatchList />
-        <TierList />
-        <FriendsList />
+        <div>
+          <WatchList />
+          {/* add a filter bar component here */}
+        </div>
+        <div className="mid">
+          <TierList />
+        </div>
+        <div>
+          <FriendsList />
+        </div>
       </div>
     </Wrapper>
   );

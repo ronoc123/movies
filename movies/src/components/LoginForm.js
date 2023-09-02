@@ -30,6 +30,13 @@ export default function LoginForm() {
       });
     }
   };
+  const [showPassword, setShowPassword] = React.useState(false);
+
+  const handleClickShowPassword = () => setShowPassword((show) => !show);
+
+  const handleMouseDownPassword = (event) => {
+    event.preventDefault();
+  };
 
   useEffect(() => {
     if (currentUser) {
@@ -84,10 +91,10 @@ export default function LoginForm() {
       </div>
       <div>
         <TextField
-          id="outlined-multiline-flexible"
+          id="outlined-password-input"
           label="Password"
-          multiline
-          maxRows={4}
+          type="password"
+          autoComplete="current-password"
           onChange={(e) => setPassword(e.target.value)}
         />
       </div>
