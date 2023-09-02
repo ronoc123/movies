@@ -1,12 +1,15 @@
 package com.movieapp.movieapplication.controller;
 
 import com.movieapp.movieapplication.model.Movie;
-
 import com.movieapp.movieapplication.repository.MovieRepository;
 import com.movieapp.movieapplication.service.config.JwtService;
 import com.movieapp.movieapplication.service.user.User;
 import com.movieapp.movieapplication.service.user.UserRepository;
 import jakarta.validation.Valid;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -29,7 +32,10 @@ public class MovieController {
 
 //    GET all movies for a certain user
     @GetMapping("/api/v1/users/movies")
-    public List<Movie> getAllUsersSavedMovies(@RequestHeader("Authorization") String authorizationHeader) {
+    public Page<Movie> getAllUsersSavedMovies(@RequestHeader("Authorization") String authorizationHeader, @RequestParam(defaultValue = "0") int page,
+                                                    @RequestParam(defaultValue = "10") int size,
+                                                    @RequestParam(defaultValue = "id") String sortBy) {
+        Pageable pageable = PageRequest.of(page, size, Sort.by(sortBy));
 //      extract token from authentication headers
         String token = authorizationHeader.substring("Bearer ".length());
 
@@ -40,26 +46,17 @@ public class MovieController {
         Optional<User> user = userRepository.findByEmail(username);
 
 //      validate that the user with matching id does exist
-        if (user.isEmpty())
-            throw new RuntimeException("No user with found");
+        if (user.isEmpty()) {
+            throw new RuntimeException("No user found");
+        }
 
-//      send back the list of movies that belong to the user
-        return user.get().getMovies();
+        // Retrieve the user's movies using pagination
+        return movieRepository.findByUser(user.get(), pageable);
 
     }
 
-//    Get a Single Movie (Possibly need to integrate the movie api into this endpoint)
-//    @GetMapping("/api/v1/movies/{id}")
-//    public Optional<Movie> findSingleMovie(@PathVariable int id) {
-//        Optional<Movie> movie = movieRepository.findById(id);
-//        if (movie.isEmpty())
-//            throw new RuntimeException("No movie with id:" + id);
-//
-//        return movie;
-//    }
-//    Save a movie to user account
     @PostMapping("/api/v1/users/movies")
-    public List<Movie> saveUserMovie(@RequestHeader("Authorization") String authorizationHeader, @Valid @RequestBody Movie movie) {
+    public Movie saveUserMovie(@RequestHeader("Authorization") String authorizationHeader, @Valid @RequestBody Movie movie) {
         //      extract token from authentication headers
         String token = authorizationHeader.substring("Bearer ".length());
         String username = jwtService.extractUsername(token);
@@ -76,7 +73,7 @@ public class MovieController {
         movie.setUser(user.get());
         movieRepository.save(movie);
 
-        return user.get().getMovies();
+        return movie;
     }
 
 
@@ -101,7 +98,7 @@ public class MovieController {
 
         if (movieToDelete.isPresent()) {
             Movie movie = movieToDelete.get();
-            // Now you have the Movie instance
+            user.get().getMovies().remove(movie); // Remove the movie from the user's movies collection
             movieRepository.delete(movie);
         } else {
             throw new RuntimeException("Movie Not Found");

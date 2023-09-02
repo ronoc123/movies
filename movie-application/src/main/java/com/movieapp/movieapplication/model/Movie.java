@@ -26,6 +26,8 @@ public class Movie {
 
     private Long personalRating;
 
+    private Boolean isWatched = false;
+
 //    person rating
 
     private Long rating;
@@ -45,7 +47,14 @@ public class Movie {
         this.personalRating = personalRating;
         this.mediaType = mediaType;
         this.releaseDate = releaseDate;
+    }
 
+    public Boolean getWatched() {
+        return isWatched;
+    }
+
+    public void setWatched(Boolean watched) {
+        isWatched = watched;
     }
 
     public String getTitle() {
