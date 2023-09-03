@@ -1,20 +1,17 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Wrapper from "../assests/Wrappers/WatchList";
 import WatchListItem from "./WatchListItem";
+import { useState } from "react";
+import { useAppContext } from "../Context/appContext";
 
 const WatchList = () => {
+  const { movieWatchList } = useAppContext();
+
   return (
     <Wrapper>
-      <WatchListItem />
-      <WatchListItem />
-      <WatchListItem />
-      <WatchListItem />
-      <WatchListItem />
-      <WatchListItem />
-      <WatchListItem />
-      <WatchListItem />
-      <WatchListItem />
-      <WatchListItem />
+      {movieWatchList?.map(() => {
+        return <WatchListItem />;
+      })}
     </Wrapper>
   );
 };

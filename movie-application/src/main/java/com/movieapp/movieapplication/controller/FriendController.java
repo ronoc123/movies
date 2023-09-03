@@ -4,6 +4,10 @@ import com.movieapp.movieapplication.service.config.JwtService;
 import com.movieapp.movieapplication.service.user.User;
 import com.movieapp.movieapplication.service.user.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -21,7 +25,10 @@ public class FriendController {
     @Autowired
     private JwtService jwtService;
     @GetMapping("/friends")
-    public Set<User> getAllFriends(@RequestHeader("Authorization") String authorizationHeader) {
+    public Page<User> getAllFriends(@RequestHeader("Authorization") String authorizationHeader, @RequestParam(defaultValue = "0") int page,
+                                    @RequestParam(defaultValue = "10") int size,
+                                    @RequestParam(defaultValue = "id") String sortBy) {
+        Pageable pageable = PageRequest.of(page, size, Sort.by(sortBy));
         String token = authorizationHeader.substring("Bearer ".length());
         String username = jwtService.extractUsername(token);
         Optional<User> user = userRepository.findByEmail(username);
@@ -29,7 +36,8 @@ public class FriendController {
         if (user.isEmpty())
             throw new RuntimeException("No user found");
 
-        return user.get().getFriends();
+//        return user.get().getFriends();
+        return userRepository.findFriendsByUserId(user.get().getId(), pageable);
     }
 
     @PostMapping("/addfriend/{id}")
@@ -52,5 +60,34 @@ public class FriendController {
 
         return ResponseEntity.ok("Friend added successfully");
 
+    }
+
+    @DeleteMapping("/friends/{id}")
+    public ResponseEntity<String> deleteFriend(
+            @RequestHeader("Authorization") String authorizationHeader,
+            @PathVariable Integer id) {
+        String token = authorizationHeader.substring("Bearer ".length());
+        String username = jwtService.extractUsername(token);
+        Optional<User> user = userRepository.findByEmail(username);
+
+        if (user.isEmpty()) {
+            throw new RuntimeException("No user found");
+        }
+
+        Optional<User> friendToRemove = userRepository.findById(id);
+
+        if (friendToRemove.isEmpty()) {
+            throw new RuntimeException("Friend not found");
+        }
+
+        Set<User> friends = user.get().getFriends();
+
+        if (friends.contains(friendToRemove.get())) {
+            friends.remove(friendToRemove.get());
+            userRepository.save(user.get());
+            return ResponseEntity.ok("Friend removed successfully");
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Friend not found in your friends list");
+        }
     }
 }

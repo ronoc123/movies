@@ -1,10 +1,16 @@
-import React from "react";
+import React, { useEffect } from "react";
 import TierList from "../components/TierList";
 import Wrapper from "../assests/Wrappers/Profile";
 import FriendsList from "../components/FriendsList";
 import WatchList from "../components/WatchList";
+import { useAppContext } from "../Context/appContext";
 
 const ProfilePage = () => {
+  const { getWatchListMovies } = useAppContext();
+
+  useEffect(() => {
+    getWatchListMovies();
+  }, []);
   return (
     <Wrapper>
       <div className="profile-container">

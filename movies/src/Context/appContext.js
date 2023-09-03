@@ -11,7 +11,20 @@ import {
   ADD_MOVIE_BEGIN,
   ADD_MOVIE_SUCCESS,
   ADD_MOVIE_ERROR,
+  GET_FRIENDS_BEGIN,
+  GET_FRIENDS_SUCCESS,
+  GET_FRIENDS_ERROR,
+  ADD_FRIEND_SUCCESS,
+  ADD_FRIEND_ERROR,
+  ADD_FRIEND_BEGIN,
+  DELETE_FRIEND_BEGIN,
+  DELETE_FRIEND_SUCCESS,
+  DELETE_FRIEND_ERROR,
+  GET_WATCHLIST_BEGIN,
+  GET_WATCHLIST_SUCCESS,
+  GET_WATCHLIST_ERROR,
 } from "./actions.js";
+
 const token = localStorage.getItem("token");
 const user = localStorage.getItem("user");
 
@@ -21,6 +34,10 @@ const initialState = {
   token: token,
   alertText: "",
   alertType: "",
+  userFriends: [],
+  movieWatchList: [],
+  alertText: "",
+  showAlert: false,
   isSidebarOpen: false,
 };
 
@@ -30,7 +47,6 @@ const AppProvider = ({ children }) => {
   const [state, dispatch] = useReducer(reducer, initialState);
 
   const authFetch = axios.create({
-    baseURL: "/api/v1",
     headers: {
       Authorization: `Bearer ${state.token}`,
     },
@@ -84,14 +100,85 @@ const AppProvider = ({ children }) => {
 
   const addMovieToWatchList = async (movie) => {
     dispatch({ type: ADD_MOVIE_BEGIN });
+
     try {
+      const response = await authFetch.post(
+        `http://localhost:8080/api/v1/users/movies`,
+        movie
+      );
+
+      const { data } = response;
+
+      dispatch({
+        type: ADD_MOVIE_SUCCESS,
+        payload: { newMovie: data, movieList: state.movieWatchList },
+      });
     } catch (error) {
       dispatch({ type: ADD_MOVIE_ERROR });
     }
   };
 
   const changeSidebar = () => {
-    dispatch({ type: "CHANGE_SIDEBAR", payload: state.isSidebarOpen });
+    dispatch({ type: CHANGE_SIDEBAR, payload: state.isSidebarOpen });
+  };
+
+  const getFriends = async () => {
+    dispatch({ type: GET_FRIENDS_BEGIN });
+
+    try {
+      const response = await authFetch("http://localhost:8080/api/v1/friends");
+
+      const { data } = response;
+
+      dispatch({ type: GET_FRIENDS_SUCCESS, payload: data.content });
+    } catch (error) {
+      dispatch({ type: GET_FRIENDS_ERROR });
+    }
+  };
+
+  const addFriend = async (id) => {
+    dispatch({ type: ADD_FRIEND_BEGIN });
+
+    try {
+      const { data } = await authFetch(
+        `http://localhost:8080/api/v1/addfriend/${id}`
+      );
+      dispatch({ type: ADD_FRIEND_SUCCESS, payload: data.content });
+    } catch (error) {
+      dispatch({ type: ADD_FRIEND_ERROR });
+    }
+  };
+
+  const deleteFriend = async (id) => {
+    dispatch({ type: DELETE_FRIEND_BEGIN });
+
+    try {
+      const response = await authFetch.delete(
+        `http://localhost:8080/api/v1/friends/${id}`
+      );
+
+      dispatch({
+        type: DELETE_FRIEND_SUCCESS,
+        payload: { friendList: state.userFriends, removeFriendId: id },
+      });
+    } catch (error) {
+      dispatch({ type: DELETE_FRIEND_ERROR });
+    }
+  };
+
+  const getWatchListMovies = async () => {
+    dispatch({ type: GET_WATCHLIST_BEGIN });
+
+    try {
+      const response = await authFetch.get(
+        `http://localhost:8080/api/v1/users/movies`
+      );
+      const { data } = response;
+
+      dispatch({ type: GET_WATCHLIST_SUCCESS, payload: data.content });
+    } catch (error) {
+      dispatch({ type: GET_WATCHLIST_ERROR });
+    }
   };
 
   return (
@@ -102,6 +189,10 @@ const AppProvider = ({ children }) => {
         userLogout,
         changeSidebar,
         addMovieToWatchList,
+        getFriends,
+        addFriend,
+        deleteFriend,
+        getWatchListMovies,
       }}
     >
       {children}
