@@ -44,6 +44,8 @@ const SingleMovie = ({
       personalRating: 0,
       poster: poster,
     };
+
+    addMovieToWatchList(savedMovie);
     handleClick();
     setTimeout(() => {
       setOpen(false);

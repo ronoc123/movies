@@ -43,7 +43,7 @@ const reducer = (state, action) => {
   }
   if (action.type === LOGOUT_USER) {
     return {
-      ...state,
+      ...initialState,
       token: null,
       user: null,
     };
