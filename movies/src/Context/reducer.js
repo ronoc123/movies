@@ -104,20 +104,20 @@ const reducer = (state, action) => {
   if (action.type === ADD_MOVIE_BEGIN) {
     return {
       ...state,
-      isLoading: true,
+      // isLoading: true,
     };
   }
   if (action.type === ADD_MOVIE_SUCCESS) {
     return {
       ...state,
-      isLoading: false,
+      // isLoading: false,
       movieWatchList: [...action.payload.movieList, action.payload.newMovie],
     };
   }
   if (action.type === ADD_MOVIE_ERROR) {
     return {
       ...state,
-      isLoading: false,
+      // isLoading: false,
     };
   }
 

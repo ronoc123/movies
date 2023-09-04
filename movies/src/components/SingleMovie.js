@@ -6,6 +6,7 @@ import { img_300, img_500, unavailable } from "../config/config";
 import { HiPlusSm } from "react-icons/hi";
 import { Snackbar } from "@mui/material";
 import SimpleSnackbar from "./SnackBar";
+
 const SingleMovie = ({
   title,
   mediaType,
@@ -17,7 +18,7 @@ const SingleMovie = ({
   showSingleMovie,
   description,
 }) => {
-  const { addMovieToWatchList } = useAppContext();
+  const { addMovieToWatchList, user } = useAppContext();
 
   const [open, setOpen] = useState(false);
 
@@ -67,9 +68,12 @@ const SingleMovie = ({
       <div className={rating > 7 ? "rating gold" : "rating silver"}>
         {Math.round(rating * 10) / 10}
       </div>
-      <div className="add-icon" onClick={addToList}>
-        <HiPlusSm />
-      </div>
+      {user && (
+        <div className="add-icon" onClick={addToList}>
+          <HiPlusSm />
+        </div>
+      )}
+
       <SimpleSnackbar
         open={open}
         handleClose={handleClose}

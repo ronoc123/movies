@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Link, Navigate } from "react-router-dom";
 import Trending from "./components/Trending";
 import Search from "./components/Search";
 import Movies from "./components/Movies";
@@ -10,8 +10,9 @@ import LoadingScreen from "./components/Loading";
 import { useAppContext } from "./Context/appContext";
 import Sidebar from "./components/Sidebar.js";
 import ProfilePage from "./Pages/ProfilePage";
+
 function App() {
-  const { isLoading } = useAppContext();
+  const { isLoading, user } = useAppContext();
   return (
     <BrowserRouter>
       {/* <Header /> */}
@@ -25,7 +26,11 @@ function App() {
           <Route path="/movie" element={<Movies />}></Route>
           <Route path="/tv" element={<Tvseries />}></Route>
           <Route path="/search" element={<Search />}></Route>
-          <Route path="/profile" element={<ProfilePage />}></Route>
+          <Route
+            path="/profile"
+            element={user ? <ProfilePage /> : <Navigate to="/login" />}
+          />
+          {/* <Route path="/profile" element={<ProfilePage />}></Route> */}
         </Routes>
       </div>
       <MainNav />
