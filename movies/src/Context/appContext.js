@@ -23,6 +23,9 @@ import {
   GET_WATCHLIST_BEGIN,
   GET_WATCHLIST_SUCCESS,
   GET_WATCHLIST_ERROR,
+  GET_TIERLIST_BEGIN,
+  GET_TIERLIST_SUCCESS,
+  GET_TIERLIST_ERROR,
 } from "./actions.js";
 
 const token = localStorage.getItem("token");
@@ -181,6 +184,16 @@ const AppProvider = ({ children }) => {
     }
   };
 
+  const getTierListMovies = async () => {
+    dispatch({ type: GET_TIERLIST_BEGIN });
+
+    try {
+      dispatch({ type: GET_TIERLIST_SUCCESS });
+    } catch (error) {
+      dispatch({ type: GET_TIERLIST_ERROR });
+    }
+  };
+
   return (
     <AppContext.Provider
       value={{
@@ -193,6 +206,7 @@ const AppProvider = ({ children }) => {
         addFriend,
         deleteFriend,
         getWatchListMovies,
+        getTierListMovies,
       }}
     >
       {children}

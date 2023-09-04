@@ -6,11 +6,12 @@ import WatchList from "../components/WatchList";
 import { useAppContext } from "../Context/appContext";
 
 const ProfilePage = () => {
-  const { getWatchListMovies, getFriends } = useAppContext();
+  const { getWatchListMovies, getFriends, getTierListMovies } = useAppContext();
 
   useEffect(() => {
     getWatchListMovies();
     getFriends();
+    getTierListMovies();
   }, []);
   return (
     <Wrapper>

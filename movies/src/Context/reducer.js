@@ -17,6 +17,9 @@ import {
   GET_WATCHLIST_BEGIN,
   GET_WATCHLIST_SUCCESS,
   GET_WATCHLIST_ERROR,
+  GET_TIERLIST_BEGIN,
+  GET_TIERLIST_SUCCESS,
+  GET_TIERLIST_ERROR,
 } from "./actions";
 
 const reducer = (state, action) => {

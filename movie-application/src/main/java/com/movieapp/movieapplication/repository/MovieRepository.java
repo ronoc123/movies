@@ -9,4 +9,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 public interface MovieRepository extends JpaRepository<Movie, Integer> {
 
     Page<Movie> findByUser(User user, Pageable pageable);
+    Page<Movie> findByUserAndPersonalRatingGreaterThan(User user, double rating, Pageable pageable);
+
 }

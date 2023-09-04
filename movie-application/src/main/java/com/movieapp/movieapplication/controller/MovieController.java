@@ -55,6 +55,32 @@ public class MovieController {
 
     }
 
+    @GetMapping("/api/v1/users/movies/rated/{id}")
+    public Page<Movie> getUserRatedMovies( @RequestParam(defaultValue = "0") int page,
+                                              @RequestParam(defaultValue = "50") int size,
+                                              @RequestParam(defaultValue = "id") String sortBy,
+                                          @PathVariable int id) {
+        Pageable pageable = PageRequest.of(page, size, Sort.by(sortBy));
+//      extract token from authentication headers
+
+//      use service to extract the EMAIL from the token claims
+
+
+//      check if user exists in the database
+        Optional<User> user = userRepository.findById(id);
+
+//      validate that the user with matching id does exist
+        if (user.isEmpty()) {
+            throw new RuntimeException("No user found");
+        }
+
+        // Retrieve the user's movies using pagination
+        return movieRepository.findByUserAndPersonalRatingGreaterThan(user.get(), 0,pageable);
+
+    }
+
+
+
     @PostMapping("/api/v1/users/movies")
     public Movie saveUserMovie(@RequestHeader("Authorization") String authorizationHeader, @Valid @RequestBody Movie movie) {
         //      extract token from authentication headers
