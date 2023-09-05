@@ -7,10 +7,16 @@ const Wrapper = styled.div`
   }
   .profile-container {
     margin-top: 3rem;
-    width: 70%;
+    width: 65%;
     display: grid;
     gap: 1rem;
-    grid-template-columns: 1fr 4fr 1fr;
+    /* grid-template-columns: 1fr 4fr 1fr; */
+  }
+
+  @media screen and (max-width: 900px) {
+    .profile-container {
+      width: 95%;
+    }
   }
 `;
 

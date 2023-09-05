@@ -5,6 +5,7 @@ import FriendsList from "../components/FriendsList";
 import WatchList from "../components/WatchList";
 import { useAppContext } from "../Context/appContext";
 import UserCard from "../components/UserCard";
+import BasicTabs from "../components/CustomTabPanel";
 
 const ProfilePage = () => {
   const { getWatchListMovies, getFriends, getTierListMovies } = useAppContext();
@@ -17,12 +18,13 @@ const ProfilePage = () => {
   return (
     <Wrapper>
       <div className="profile-container">
-        <div>{/* could hold something */}</div>
+        <div></div>
         <div className="mid">
-          <UserCard />
-          <TierList />
+          <BasicTabs />
+          {/* <UserCard /> */}
+          {/* <TierList /> */}
         </div>
-        <div>{/* could hold somethign */}</div>
+        <div>{/* <FriendsList /> */}</div>
       </div>
     </Wrapper>
   );

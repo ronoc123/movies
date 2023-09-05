@@ -83,7 +83,7 @@ const AppProvider = ({ children }) => {
           type: SETUP_USER_SUCCESS,
           payload: { access_token: access_token, user: current_user },
         });
-        addUserToLocalStorage(currentUser.email, access_token);
+        addUserToLocalStorage(current_user, access_token);
       } else {
         const response = await axios.post(
           `http://localhost:8080/api/v1/auth/${endPoint}`,

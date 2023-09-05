@@ -5,7 +5,7 @@ import { useAppContext } from "../Context/appContext";
 const UserCard = () => {
   const { user } = useAppContext();
 
-  return <Wrapper>{user}</Wrapper>;
+  return <Wrapper>{user.firstname}</Wrapper>;
 };
 
 export default UserCard;
