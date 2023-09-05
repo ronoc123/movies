@@ -3,8 +3,6 @@ import styled from "styled-components";
 const Wrapper = styled.div`
   display: flex;
   justify-content: center;
-  .user-container {
-  }
   .profile-container {
     margin-top: 3rem;
     width: 70%;

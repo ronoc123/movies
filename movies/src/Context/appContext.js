@@ -39,7 +39,8 @@ const initialState = {
   alertType: "",
   userFriends: [],
   movieWatchList: [],
-  alertText: "",
+  tierList: [],
+
   showAlert: false,
   isSidebarOpen: false,
 };
@@ -71,17 +72,16 @@ const AppProvider = ({ children }) => {
 
   const userLogin = async (endPoint, currentUser) => {
     dispatch({ type: SETUP_USER_BEGIN });
-    console.log(currentUser);
     try {
       if (endPoint === "authenticate") {
         const response = await axios.post(
           `http://localhost:8080/api/v1/auth/${endPoint}`,
           currentUser
         );
-        const { access_token } = response.data;
+        const { access_token, current_user } = response.data;
         dispatch({
           type: SETUP_USER_SUCCESS,
-          payload: { access_token: access_token, user: currentUser.email },
+          payload: { access_token: access_token, user: current_user },
         });
         addUserToLocalStorage(currentUser.email, access_token);
       } else {
@@ -184,11 +184,17 @@ const AppProvider = ({ children }) => {
     }
   };
 
-  const getTierListMovies = async () => {
+  const getTierListMovies = async (id) => {
     dispatch({ type: GET_TIERLIST_BEGIN });
 
     try {
-      dispatch({ type: GET_TIERLIST_SUCCESS });
+      const response = await axios(
+        `http://localhost:8080/api/v1/users/movies/rated/${id}`
+      );
+
+      const { data } = response;
+
+      dispatch({ type: GET_TIERLIST_SUCCESS, payload: data.content });
     } catch (error) {
       dispatch({ type: GET_TIERLIST_ERROR });
     }

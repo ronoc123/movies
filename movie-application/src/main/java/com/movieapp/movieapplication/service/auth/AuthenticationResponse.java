@@ -1,6 +1,7 @@
 package com.movieapp.movieapplication.service.auth;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.movieapp.movieapplication.service.user.User;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -16,4 +17,6 @@ public class AuthenticationResponse {
   private String accessToken;
   @JsonProperty("refresh_token")
   private String refreshToken;
+  @JsonProperty("current_user")
+  private User user;
 }

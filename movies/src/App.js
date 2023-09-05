@@ -10,6 +10,7 @@ import LoadingScreen from "./components/Loading";
 import { useAppContext } from "./Context/appContext";
 import Sidebar from "./components/Sidebar.js";
 import ProfilePage from "./Pages/ProfilePage";
+import FriendPage from "./Pages/FriendPage";
 
 function App() {
   const { isLoading, user } = useAppContext();
@@ -25,12 +26,12 @@ function App() {
           <Route path="/login" element={<LoginPage />}></Route>
           <Route path="/movie" element={<Movies />}></Route>
           <Route path="/tv" element={<Tvseries />}></Route>
+          <Route path="/user/:id" element={<FriendPage />} />
           <Route path="/search" element={<Search />}></Route>
           <Route
             path="/profile"
             element={user ? <ProfilePage /> : <Navigate to="/login" />}
           />
-          {/* <Route path="/profile" element={<ProfilePage />}></Route> */}
         </Routes>
       </div>
       <MainNav />

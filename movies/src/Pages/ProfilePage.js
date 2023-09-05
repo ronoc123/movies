@@ -4,6 +4,7 @@ import Wrapper from "../assests/Wrappers/Profile";
 import FriendsList from "../components/FriendsList";
 import WatchList from "../components/WatchList";
 import { useAppContext } from "../Context/appContext";
+import UserCard from "../components/UserCard";
 
 const ProfilePage = () => {
   const { getWatchListMovies, getFriends, getTierListMovies } = useAppContext();
@@ -16,16 +17,12 @@ const ProfilePage = () => {
   return (
     <Wrapper>
       <div className="profile-container">
-        <div>
-          <WatchList />
-          {/* add a filter bar component here */}
-        </div>
+        <div>{/* could hold something */}</div>
         <div className="mid">
+          <UserCard />
           <TierList />
         </div>
-        <div>
-          <FriendsList />
-        </div>
+        <div>{/* could hold somethign */}</div>
       </div>
     </Wrapper>
   );
