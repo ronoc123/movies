@@ -28,6 +28,10 @@ public class Movie {
 
     private Boolean isWatched = false;
 
+    private Boolean isFavorited = false;
+
+    private Integer dbId;
+
 //    person rating
 
     private Long rating;
@@ -39,7 +43,7 @@ public class Movie {
     @JsonIgnore
     private User user;
 
-    public Movie(String title, Long rating, String description, String releaseDate, String mediaType, Long personalRating, String poster) {
+    public Movie(String title, Long rating, String description, String releaseDate, String mediaType, Long personalRating, String poster, Integer dbId) {
         this.title = title;
         this.rating = rating;
         this.description = description;
@@ -47,6 +51,22 @@ public class Movie {
         this.personalRating = personalRating;
         this.mediaType = mediaType;
         this.releaseDate = releaseDate;
+        this.dbId = dbId;
+    }
+
+    public Integer getDbId() {
+        return dbId;
+    }
+    public void setDbId(Integer dbId) {
+        this.dbId = dbId;
+    }
+
+    public Boolean getFavorited() {
+        return isFavorited;
+    }
+
+    public void setFavorited(Boolean favorited) {
+        isFavorited = favorited;
     }
 
     public Boolean getWatched() {

@@ -10,6 +10,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -132,4 +133,57 @@ public class MovieController {
 
         return id;
     }
+
+    @PutMapping("/api/v1/movie/watched/{id}")
+    public ResponseEntity<Movie> updateMovieWatched(@RequestHeader("Authorization") String authorizationHeader, @PathVariable int id, @RequestBody Long rating) {
+        String token = authorizationHeader.substring("Bearer ".length());
+        String username = jwtService.extractUsername(token);
+        Optional<User> user = userRepository.findByEmail(username);
+        if (user.isEmpty())
+            throw new RuntimeException("unauthorized");
+
+        Optional<Movie> movieToUpdate = user.get().getMovies().stream()
+                .filter(u -> u.getId().equals(id))
+                .findFirst();
+
+        if (movieToUpdate.isPresent()) {
+            Movie movie = movieToUpdate.get();
+            // Update the isWatched field to true
+            movie.setWatched(!movie.getWatched());
+            movie.setRating(rating);
+            // Save the updated movie
+            movieRepository.save(movie);
+            return ResponseEntity.ok(movie);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
+    @PutMapping("/api/v1/movie/favorite/{id}")
+    public ResponseEntity<Movie> updateMovieFavorite(@RequestHeader("Authorization") String authorizationHeader, @PathVariable int id) {
+        String token = authorizationHeader.substring("Bearer ".length());
+        String username = jwtService.extractUsername(token);
+        Optional<User> user = userRepository.findByEmail(username);
+        if (user.isEmpty())
+            throw new RuntimeException("unauthorized");
+
+        Optional<Movie> movieToUpdate = user.get().getMovies().stream()
+                .filter(u -> u.getId().equals(id))
+                .findFirst();
+
+        if (movieToUpdate.isPresent()) {
+            Movie movie = movieToUpdate.get();
+            // Update the isWatched field to true
+            movie.setFavorited(!movie.getFavorited());
+            // Save the updated movie
+            movieRepository.save(movie);
+            return ResponseEntity.ok(movie);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
+
+
+
+
 }

@@ -44,6 +44,7 @@ const SingleMovie = ({
       mediaType: mediaType,
       personalRating: 0,
       poster: poster,
+      dbId: id,
     };
 
     addMovieToWatchList(savedMovie);

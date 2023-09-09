@@ -133,16 +133,16 @@ export default function PrimarySearchAppBar() {
       onClose={handleMenuClose}
     >
       {user && (
-        <>
+        <div>
           <MenuItem onClick={handleMenuCloseProfile}>My Profile</MenuItem>
           {/* <MenuItem onClick={handleMenuClose}>My account</MenuItem> */}
           <MenuItem onClick={handleLogout}>Logout</MenuItem>
-        </>
+        </div>
       )}
       {!user && (
-        <>
+        <div>
           <MenuItem onClick={redirectUser}>Login</MenuItem>
-        </>
+        </div>
       )}
     </Menu>
   );

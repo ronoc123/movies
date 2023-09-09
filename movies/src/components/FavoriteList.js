@@ -6,7 +6,7 @@ import { useAppContext } from "../Context/appContext";
 import SingleModal from "./SingleModal";
 import axios from "axios";
 
-const WatchList = () => {
+const FavoriteList = () => {
   let key = process.env.REACT_APP_MOVIES_API;
 
   const { movieWatchList } = useAppContext();
@@ -21,12 +21,15 @@ const WatchList = () => {
           mediaType ? mediaType : "tv"
         }/${id}?api_key=${key}&language=en-US`
       );
+
       setSingleMovie(data);
       setShowModal(true);
     } catch (error) {
       console.log(error);
     }
   };
+
+  console.log(movieWatchList);
 
   if (movieWatchList.length === 0) {
     return <div>No Favorited Movies...</div>;
@@ -40,29 +43,31 @@ const WatchList = () => {
             showSingleMovie={showSingleMovie}
           />
         )}
-        {movieWatchList?.map((m) => {
-          return (
-            <WatchListItem
-              key={m.id}
-              description={m.description}
-              id={m.id}
-              mediaType={m.mediaType}
-              name={m.name}
-              personalRating={m.personalRating}
-              poster={m.poster}
-              rating={m.rating}
-              releaseDate={m.releaseDate}
-              title={m.title}
-              watched={m.watched}
-              showSingleMovie={showSingleMovie}
-              favorited={m.favorited}
-              dbId={m.dbId}
-            />
-          );
-        })}
+        {movieWatchList
+          ?.filter((m) => m.favorited === true)
+          ?.map((m) => {
+            return (
+              <WatchListItem
+                key={m.id}
+                description={m.description}
+                id={m.id}
+                mediaType={m.mediaType}
+                name={m.name}
+                personalRating={m.personalRating}
+                poster={m.poster}
+                rating={m.rating}
+                releaseDate={m.releaseDate}
+                title={m.title}
+                watched={m.watched}
+                showSingleMovie={showSingleMovie}
+                favorited={m.favorited}
+                dbId={m.dbId}
+              />
+            );
+          })}
       </Wrapper>
     );
   }
 };
 
-export default WatchList;
+export default FavoriteList;

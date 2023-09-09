@@ -9,6 +9,7 @@ import WatchList from "./WatchList";
 import { useAppContext } from "../Context/appContext";
 
 import UserCard from "./UserCard";
+import FavoriteList from "./FavoriteList";
 
 const tabPanelStyle = {
   background: "#2B2D31", // Set the background color to grey
@@ -73,11 +74,12 @@ export default function BasicTabs() {
           aria-label="basic tabs example"
         >
           <Tab
-            label={user.firstname + " " + user.lastname}
+            label={"Profile"}
             {...a11yProps(0)}
             style={{
               backgroundColor: "#2B2D31",
-              color: "white", // Text color for the tabs
+              color: "white",
+              fontSize: ".6em", // Text color for the tabs
             }}
           />
           <Tab
@@ -85,7 +87,9 @@ export default function BasicTabs() {
             {...a11yProps(1)}
             style={{
               backgroundColor: "#2B2D31",
-              color: "white", // Text color for the tabs
+              color: "white",
+              fontSize: ".6em", // Text color for the tabs
+              // Text color for the tabs
             }}
           />
           <Tab
@@ -93,7 +97,9 @@ export default function BasicTabs() {
             {...a11yProps(2)}
             style={{
               backgroundColor: "#2B2D31",
-              color: "white", // Text color for the tabs
+              color: "white",
+              fontSize: ".6em", // Text color for the tabs
+              // Text color for the tabs
             }}
           />
           <Tab
@@ -101,23 +107,44 @@ export default function BasicTabs() {
             {...a11yProps(3)}
             style={{
               backgroundColor: "#2B2D31",
-              color: "white", // Text color for the tabs
+              color: "white",
+              fontSize: ".6em", // Text color for the tabs
+
+              // Text color for the tabs
             }}
           />
+          {user && (
+            <Tab
+              label="Recommended"
+              {...a11yProps(4)}
+              style={{
+                backgroundColor: "#2B2D31",
+                color: "white",
+                fontSize: ".6em",
+                // Text color for the tabs
+                // Text color for the tabs
+              }}
+            />
+          )}
         </Tabs>
       </Box>
       <CustomTabPanel value={value} index={0}>
         <UserCard />
       </CustomTabPanel>
       <CustomTabPanel value={value} index={1}>
-        <WatchList />
+        <FavoriteList />
       </CustomTabPanel>
       <CustomTabPanel value={value} index={2}>
         <TierList />
       </CustomTabPanel>
       <CustomTabPanel value={value} index={3}>
-        Item Three
+        <WatchList />
       </CustomTabPanel>
+      {user && (
+        <CustomTabPanel value={value} index={4}>
+          Recommended
+        </CustomTabPanel>
+      )}
     </Box>
   );
 }

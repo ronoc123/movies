@@ -11,6 +11,7 @@ import { useAppContext } from "./Context/appContext";
 import Sidebar from "./components/Sidebar.js";
 import ProfilePage from "./Pages/ProfilePage";
 import FriendPage from "./Pages/FriendPage";
+import MessagingTab from "./components/MessagingTab";
 
 function App() {
   const { isLoading, user } = useAppContext();
@@ -34,6 +35,7 @@ function App() {
           />
         </Routes>
       </div>
+      {/* <MessagingTab /> */}
       <MainNav />
     </BrowserRouter>
   );

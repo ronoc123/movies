@@ -5,6 +5,9 @@ const Wrapper = styled.div`
   grid-template-columns: auto 1fr;
   border-radius: 0.3rem;
   background: var(--clr-grey);
+  border-top: 1px solid black;
+  border-right: 1px solid black;
+  border-left: 1px solid black;
   .rating {
     display: grid;
   }

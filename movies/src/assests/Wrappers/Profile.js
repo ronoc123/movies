@@ -12,7 +12,26 @@ const Wrapper = styled.div`
     gap: 1rem;
     /* grid-template-columns: 1fr 4fr 1fr; */
   }
+  .rating-main {
+    position: fixed;
+    display: grid;
+    place-items: center;
+    right: 0;
+    top: 0;
+    height: 100%;
+    width: 100%;
+    background: rgba(0, 0, 0, 0.3);
+    z-index: 4;
+  }
 
+  .form-input {
+    background: #121212;
+    width: 30rem;
+    min-height: 15rem;
+    border-radius: 1rem;
+    display: grid;
+    place-items: center;
+  }
   @media screen and (max-width: 900px) {
     .profile-container {
       width: 95%;

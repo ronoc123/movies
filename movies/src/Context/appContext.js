@@ -26,6 +26,11 @@ import {
   GET_TIERLIST_BEGIN,
   GET_TIERLIST_SUCCESS,
   GET_TIERLIST_ERROR,
+  FAVORITE_MOVIE_SUCCESS,
+  FAVORITE_MOVIE_ERROR,
+  RATE_MOVIE_SUCCESS,
+  RATE_MOVIE_ERROR,
+  OPEN_RATING_MODAL,
 } from "./actions.js";
 
 const token = localStorage.getItem("token");
@@ -40,7 +45,7 @@ const initialState = {
   userFriends: [],
   movieWatchList: [],
   tierList: [],
-
+  ratingModal: false,
   showAlert: false,
   isSidebarOpen: false,
 };
@@ -200,6 +205,39 @@ const AppProvider = ({ children }) => {
     }
   };
 
+  const favoriteMovie = async (id) => {
+    try {
+      const { data } = await authFetch.put(
+        `http://localhost:8080/api/v1/movie/favorite/${id}`
+      );
+      dispatch({
+        type: FAVORITE_MOVIE_SUCCESS,
+      });
+    } catch (error) {
+      dispatch({ type: FAVORITE_MOVIE_ERROR });
+    }
+    getWatchListMovies();
+  };
+  const rateMovie = async (id, rating) => {
+    try {
+      const { data } = await authFetch.put(
+        `http://localhost:8080/api/v1/movie/favorite/${id}`,
+        rating
+      );
+      dispatch({
+        type: RATE_MOVIE_SUCCESS,
+      });
+    } catch (error) {
+      dispatch({ type: RATE_MOVIE_ERROR });
+    }
+    getWatchListMovies();
+  };
+
+  const openRatingModal = () => {
+    console.log("open");
+    dispatch({ type: OPEN_RATING_MODAL });
+  };
+
   return (
     <AppContext.Provider
       value={{
@@ -213,6 +251,8 @@ const AppProvider = ({ children }) => {
         deleteFriend,
         getWatchListMovies,
         getTierListMovies,
+        favoriteMovie,
+        openRatingModal,
       }}
     >
       {children}

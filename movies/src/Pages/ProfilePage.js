@@ -6,9 +6,11 @@ import WatchList from "../components/WatchList";
 import { useAppContext } from "../Context/appContext";
 import UserCard from "../components/UserCard";
 import BasicTabs from "../components/CustomTabPanel";
+import RatingModal from "../components/RatingModal";
 
 const ProfilePage = () => {
-  const { getWatchListMovies, getFriends, getTierListMovies } = useAppContext();
+  const { getWatchListMovies, getFriends, getTierListMovies, ratingModal } =
+    useAppContext();
 
   useEffect(() => {
     getWatchListMovies();
@@ -26,6 +28,7 @@ const ProfilePage = () => {
         </div>
         <div>{/* <FriendsList /> */}</div>
       </div>
+      {ratingModal && <RatingModal />}
     </Wrapper>
   );
 };
