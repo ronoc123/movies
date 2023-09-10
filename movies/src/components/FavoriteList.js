@@ -29,9 +29,7 @@ const FavoriteList = () => {
     }
   };
 
-  console.log(movieWatchList);
-
-  if (movieWatchList.length === 0) {
+  if (movieWatchList.filter((m) => m.favorited === true).length === 0) {
     return <div>No Favorited Movies...</div>;
   } else {
     return (

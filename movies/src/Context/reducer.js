@@ -25,6 +25,7 @@ import {
   RATE_MOVIE_SUCCESS,
   RATE_MOVIE_ERROR,
   OPEN_RATING_MODAL,
+  CLOSE_RATING_MODAL,
 } from "./actions";
 
 const reducer = (state, action) => {
@@ -189,7 +190,13 @@ const reducer = (state, action) => {
   if (action.type === OPEN_RATING_MODAL) {
     return {
       ...state,
-      ratingModal: !state.ratingModal,
+      ratingModal: true,
+    };
+  }
+  if (action.type === CLOSE_RATING_MODAL) {
+    return {
+      ...state,
+      ratingModal: false,
     };
   }
 

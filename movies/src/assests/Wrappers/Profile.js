@@ -23,15 +23,26 @@ const Wrapper = styled.div`
     background: rgba(0, 0, 0, 0.3);
     z-index: 4;
   }
+  .close-btn {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    color: darkred;
+
+    cursor: pointer;
+  }
 
   .form-input {
+    position: relative;
     background: #121212;
     width: 30rem;
     min-height: 15rem;
     border-radius: 1rem;
     display: grid;
     place-items: center;
+    background: white;
   }
+
   @media screen and (max-width: 900px) {
     .profile-container {
       width: 95%;

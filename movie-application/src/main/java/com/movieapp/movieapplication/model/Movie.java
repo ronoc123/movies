@@ -24,7 +24,7 @@ public class Movie {
 //    release
     private String releaseDate;
 
-    private Long personalRating;
+    private Double personalRating;
 
     private Boolean isWatched = false;
 
@@ -34,7 +34,7 @@ public class Movie {
 
 //    person rating
 
-    private Long rating;
+    private Double rating;
 
     @Size(max = 50)
     private String description;
@@ -43,7 +43,7 @@ public class Movie {
     @JsonIgnore
     private User user;
 
-    public Movie(String title, Long rating, String description, String releaseDate, String mediaType, Long personalRating, String poster, Integer dbId) {
+    public Movie(String title, Double rating, String description, String releaseDate, String mediaType, Double personalRating, String poster, Integer dbId) {
         this.title = title;
         this.rating = rating;
         this.description = description;
@@ -109,11 +109,11 @@ public class Movie {
         this.releaseDate = releaseDate;
     }
 
-    public Long getPersonalRating() {
+    public Double getPersonalRating() {
         return personalRating;
     }
 
-    public void setPersonalRating(Long personalRating) {
+    public void setPersonalRating(Double personalRating) {
         this.personalRating = personalRating;
     }
 
@@ -143,11 +143,11 @@ public class Movie {
         this.title = title;
     }
 
-    public Long getRating() {
+    public Double getRating() {
         return rating;
     }
 
-    public void setRating(Long rating) {
+    public void setRating(Double rating) {
         this.rating = rating;
     }
 

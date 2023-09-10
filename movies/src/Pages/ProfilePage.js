@@ -9,8 +9,7 @@ import BasicTabs from "../components/CustomTabPanel";
 import RatingModal from "../components/RatingModal";
 
 const ProfilePage = () => {
-  const { getWatchListMovies, getFriends, getTierListMovies, ratingModal } =
-    useAppContext();
+  const { getWatchListMovies, getFriends, getTierListMovies } = useAppContext();
 
   useEffect(() => {
     getWatchListMovies();
@@ -28,7 +27,6 @@ const ProfilePage = () => {
         </div>
         <div>{/* <FriendsList /> */}</div>
       </div>
-      {ratingModal && <RatingModal />}
     </Wrapper>
   );
 };

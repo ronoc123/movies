@@ -31,6 +31,7 @@ import {
   RATE_MOVIE_SUCCESS,
   RATE_MOVIE_ERROR,
   OPEN_RATING_MODAL,
+  CLOSE_RATING_MODAL,
 } from "./actions.js";
 
 const token = localStorage.getItem("token");
@@ -221,21 +222,25 @@ const AppProvider = ({ children }) => {
   const rateMovie = async (id, rating) => {
     try {
       const { data } = await authFetch.put(
-        `http://localhost:8080/api/v1/movie/favorite/${id}`,
-        rating
+        `http://localhost:8080/api/v1/movie/watched/${id}`,
+        { rating: rating }
       );
       dispatch({
         type: RATE_MOVIE_SUCCESS,
       });
+      console.log(data);
     } catch (error) {
       dispatch({ type: RATE_MOVIE_ERROR });
+      console.log(error);
     }
     getWatchListMovies();
   };
 
   const openRatingModal = () => {
-    console.log("open");
     dispatch({ type: OPEN_RATING_MODAL });
+  };
+  const closeRatingModal = () => {
+    dispatch({ type: CLOSE_RATING_MODAL });
   };
 
   return (
@@ -253,6 +258,8 @@ const AppProvider = ({ children }) => {
         getTierListMovies,
         favoriteMovie,
         openRatingModal,
+        closeRatingModal,
+        rateMovie,
       }}
     >
       {children}

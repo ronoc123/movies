@@ -5,6 +5,7 @@ import { useAppContext } from "../Context/appContext";
 import { AiFillEye } from "react-icons/ai";
 import { MdRemoveCircle } from "react-icons/md";
 import { AiFillStar } from "react-icons/ai";
+import RatingModal from "./RatingModal";
 
 const WatchListItem = ({
   description,
@@ -21,7 +22,8 @@ const WatchListItem = ({
   showSingleMovie,
   dbId,
 }) => {
-  const { favoriteMovie, rateMovie, openRatingModal } = useAppContext();
+  const { favoriteMovie, rateMovie, openRatingModal, ratingModal } =
+    useAppContext();
   return (
     <Wrapper>
       <div className="list-container">
@@ -50,6 +52,7 @@ const WatchListItem = ({
           className="movie"
         />
       </div>
+      {ratingModal && <RatingModal id={id} />}
     </Wrapper>
   );
 };

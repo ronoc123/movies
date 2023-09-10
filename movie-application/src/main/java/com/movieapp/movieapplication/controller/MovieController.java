@@ -1,6 +1,7 @@
 package com.movieapp.movieapplication.controller;
 
 import com.movieapp.movieapplication.model.Movie;
+import com.movieapp.movieapplication.model.UpdateMovieRequest;
 import com.movieapp.movieapplication.repository.MovieRepository;
 import com.movieapp.movieapplication.service.config.JwtService;
 import com.movieapp.movieapplication.service.user.User;
@@ -135,7 +136,7 @@ public class MovieController {
     }
 
     @PutMapping("/api/v1/movie/watched/{id}")
-    public ResponseEntity<Movie> updateMovieWatched(@RequestHeader("Authorization") String authorizationHeader, @PathVariable int id, @RequestBody Long rating) {
+    public ResponseEntity<Movie> updateMovieWatched(@RequestHeader("Authorization") String authorizationHeader, @PathVariable int id, @RequestBody UpdateMovieRequest request) {
         String token = authorizationHeader.substring("Bearer ".length());
         String username = jwtService.extractUsername(token);
         Optional<User> user = userRepository.findByEmail(username);
@@ -150,7 +151,7 @@ public class MovieController {
             Movie movie = movieToUpdate.get();
             // Update the isWatched field to true
             movie.setWatched(!movie.getWatched());
-            movie.setRating(rating);
+            movie.setPersonalRating(request.getRating());
             // Save the updated movie
             movieRepository.save(movie);
             return ResponseEntity.ok(movie);
