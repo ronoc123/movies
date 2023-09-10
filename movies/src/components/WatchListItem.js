@@ -7,6 +7,8 @@ import { MdRemoveCircle } from "react-icons/md";
 import { AiFillStar } from "react-icons/ai";
 import RatingModal from "./RatingModal";
 
+import ErrorSimpleSnackbar from "./ErrorSimpleSnackbar";
+
 const WatchListItem = ({
   description,
   id,
@@ -21,9 +23,14 @@ const WatchListItem = ({
   favorited,
   showSingleMovie,
   dbId,
+  open,
+  setOpen,
+  handleClick,
+  handleClose,
 }) => {
   const { favoriteMovie, rateMovie, openRatingModal, ratingModal } =
     useAppContext();
+
   return (
     <Wrapper>
       <div className="list-container">
@@ -53,6 +60,11 @@ const WatchListItem = ({
         />
       </div>
       {ratingModal && <RatingModal id={id} />}
+      <ErrorSimpleSnackbar
+        open={open}
+        handleClose={handleClose}
+        handleClick={handleClick}
+      />
     </Wrapper>
   );
 };

@@ -18,14 +18,33 @@ const WatchList = () => {
     try {
       const { data } = await axios(
         `https://api.themoviedb.org/3/${
-          mediaType ? mediaType : "tv"
+          mediaType ? mediaType : "movie"
         }/${id}?api_key=${key}&language=en-US`
       );
       setSingleMovie(data);
       setShowModal(true);
     } catch (error) {
       console.log(error);
+      setOpen(true);
+
+      setTimeout(() => {
+        setOpen(false);
+      }, 5000);
     }
+  };
+
+  const [open, setOpen] = useState(false);
+
+  const handleClick = () => {
+    setOpen(true);
+  };
+
+  const handleClose = (event, reason) => {
+    if (reason === "clickaway") {
+      return;
+    }
+
+    setOpen(false);
   };
 
   if (movieWatchList.length === 0) {
@@ -57,6 +76,10 @@ const WatchList = () => {
               showSingleMovie={showSingleMovie}
               favorited={m.favorited}
               dbId={m.dbId}
+              open={open}
+              setOpen={setOpen}
+              handleClick={handleClick}
+              handleClose={handleClose}
             />
           );
         })}

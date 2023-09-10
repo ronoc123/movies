@@ -32,6 +32,8 @@ import {
   RATE_MOVIE_ERROR,
   OPEN_RATING_MODAL,
   CLOSE_RATING_MODAL,
+  CLOSE_ERROR_SNACKBAR,
+  OPEN_ERROR_SNACKBAR,
 } from "./actions.js";
 
 const token = localStorage.getItem("token");
@@ -49,6 +51,7 @@ const initialState = {
   ratingModal: false,
   showAlert: false,
   isSidebarOpen: false,
+  errorSnackBar: false,
 };
 
 const AppContext = React.createContext();
@@ -180,7 +183,7 @@ const AppProvider = ({ children }) => {
 
     try {
       const response = await authFetch.get(
-        `http://localhost:8080/api/v1/users/movies`
+        `http://localhost:8080/api/v1/users/movies?size=50`
       );
       const { data } = response;
 
@@ -243,6 +246,13 @@ const AppProvider = ({ children }) => {
     dispatch({ type: CLOSE_RATING_MODAL });
   };
 
+  const errorSnackbarPopup = () => {
+    dispatch({ type: OPEN_ERROR_SNACKBAR });
+    setTimeout(() => {
+      dispatch({ type: CLOSE_ERROR_SNACKBAR });
+    });
+  };
+
   return (
     <AppContext.Provider
       value={{
@@ -260,6 +270,7 @@ const AppProvider = ({ children }) => {
         openRatingModal,
         closeRatingModal,
         rateMovie,
+        errorSnackbarPopup,
       }}
     >
       {children}

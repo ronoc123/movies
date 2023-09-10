@@ -26,6 +26,8 @@ import {
   RATE_MOVIE_ERROR,
   OPEN_RATING_MODAL,
   CLOSE_RATING_MODAL,
+  CLOSE_ERROR_SNACKBAR,
+  OPEN_ERROR_SNACKBAR,
 } from "./actions";
 
 const reducer = (state, action) => {
@@ -197,6 +199,20 @@ const reducer = (state, action) => {
     return {
       ...state,
       ratingModal: false,
+    };
+  }
+
+  if (action.type == OPEN_ERROR_SNACKBAR) {
+    return {
+      ...state,
+      errorSnackBar: true,
+    };
+  }
+
+  if (action.type == CLOSE_ERROR_SNACKBAR) {
+    return {
+      ...state,
+      errorSnackBar: false,
     };
   }
 

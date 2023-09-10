@@ -59,7 +59,12 @@ export default function BasicTabs() {
   };
 
   return (
-    <Box sx={{ width: "100%" }}>
+    <Box
+      sx={{ width: "100%" }}
+      style={{
+        marginBottom: "5rem",
+      }}
+    >
       <Box
         sx={{
           borderBottom: 1,

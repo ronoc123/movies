@@ -22,8 +22,6 @@ const ProfilePage = () => {
         <div></div>
         <div className="mid">
           <BasicTabs />
-          {/* <UserCard /> */}
-          {/* <TierList /> */}
         </div>
         <div>{/* <FriendsList /> */}</div>
       </div>
