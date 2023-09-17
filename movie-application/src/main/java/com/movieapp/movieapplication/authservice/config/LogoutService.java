@@ -1,6 +1,6 @@
-package com.movieapp.movieapplication.service.config;
+package com.movieapp.movieapplication.authservice.config;
 
-import com.movieapp.movieapplication.service.token.TokenRepository;
+import com.movieapp.movieapplication.authservice.token.TokenRepository;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;

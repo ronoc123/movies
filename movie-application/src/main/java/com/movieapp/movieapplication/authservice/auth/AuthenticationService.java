@@ -1,13 +1,13 @@
-package com.movieapp.movieapplication.service.auth;
+package com.movieapp.movieapplication.authservice.auth;
 
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.movieapp.movieapplication.service.config.JwtService;
-import com.movieapp.movieapplication.service.token.Token;
-import com.movieapp.movieapplication.service.token.TokenRepository;
-import com.movieapp.movieapplication.service.token.TokenType;
-import com.movieapp.movieapplication.service.user.User;
-import com.movieapp.movieapplication.service.user.UserRepository;
+import com.movieapp.movieapplication.authservice.config.JwtService;
+import com.movieapp.movieapplication.authservice.token.Token;
+import com.movieapp.movieapplication.authservice.token.TokenRepository;
+import com.movieapp.movieapplication.authservice.token.TokenType;
+import com.movieapp.movieapplication.authservice.user.User;
+import com.movieapp.movieapplication.authservice.user.UserRepository;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;

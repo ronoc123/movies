@@ -1,7 +1,7 @@
-package com.movieapp.movieapplication.service.token;
+package com.movieapp.movieapplication.authservice.token;
 
 
-import com.movieapp.movieapplication.service.user.User;
+import com.movieapp.movieapplication.authservice.user.User;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -23,7 +23,7 @@ public class Token {
   public String token;
 
   @Enumerated(EnumType.STRING)
-  public com.movieapp.movieapplication.service.token.TokenType tokenType = com.movieapp.movieapplication.service.token.TokenType.BEARER;
+  public com.movieapp.movieapplication.authservice.token.TokenType tokenType = com.movieapp.movieapplication.authservice.token.TokenType.BEARER;
 
   public boolean revoked;
 

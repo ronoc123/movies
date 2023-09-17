@@ -1,4 +1,4 @@
-package com.movieapp.movieapplication.service.user;
+package com.movieapp.movieapplication.authservice.user;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;

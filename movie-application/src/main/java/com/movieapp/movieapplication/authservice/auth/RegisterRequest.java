@@ -1,7 +1,7 @@
-package com.movieapp.movieapplication.service.auth;
+package com.movieapp.movieapplication.authservice.auth;
 
 
-import com.movieapp.movieapplication.service.user.Role;
+import com.movieapp.movieapplication.authservice.user.Role;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

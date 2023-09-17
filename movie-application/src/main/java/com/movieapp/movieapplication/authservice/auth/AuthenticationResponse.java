@@ -1,7 +1,7 @@
-package com.movieapp.movieapplication.service.auth;
+package com.movieapp.movieapplication.authservice.auth;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.movieapp.movieapplication.service.user.User;
+import com.movieapp.movieapplication.authservice.user.User;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

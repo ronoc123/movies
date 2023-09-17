@@ -1,8 +1,8 @@
 package com.movieapp.movieapplication.services;
 
-import com.movieapp.movieapplication.service.config.JwtService;
-import com.movieapp.movieapplication.service.user.User;
-import com.movieapp.movieapplication.service.user.UserRepository;
+import com.movieapp.movieapplication.authservice.config.JwtService;
+import com.movieapp.movieapplication.authservice.user.User;
+import com.movieapp.movieapplication.authservice.user.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.Optional;

@@ -1,8 +1,8 @@
-package com.movieapp.movieapplication.service.user;
+package com.movieapp.movieapplication.authservice.user;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.movieapp.movieapplication.model.Movie;
-import com.movieapp.movieapplication.service.token.Token;
+import com.movieapp.movieapplication.authservice.token.Token;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;

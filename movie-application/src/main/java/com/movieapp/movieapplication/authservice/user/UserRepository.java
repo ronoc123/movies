@@ -1,4 +1,4 @@
-package com.movieapp.movieapplication.service.user;
+package com.movieapp.movieapplication.authservice.user;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;

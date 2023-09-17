@@ -1,6 +1,6 @@
-package com.movieapp.movieapplication.service.config;
+package com.movieapp.movieapplication.authservice.config;
 
-import com.movieapp.movieapplication.service.user.UserRepository;
+import com.movieapp.movieapplication.authservice.user.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

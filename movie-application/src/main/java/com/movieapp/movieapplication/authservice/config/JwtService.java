@@ -1,4 +1,4 @@
-package com.movieapp.movieapplication.service.config;
+package com.movieapp.movieapplication.authservice.config;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
