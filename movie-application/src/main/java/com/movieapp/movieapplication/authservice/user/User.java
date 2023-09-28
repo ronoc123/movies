@@ -37,6 +37,12 @@ public class User implements UserDetails {
   @Enumerated(EnumType.STRING)
   private Role role;
 
+  private String motto;
+
+  private Integer followers;
+
+  private Integer following;
+
   @OneToMany(mappedBy = "user")
   @JsonIgnore
   private List<Token> tokens;
@@ -69,6 +75,30 @@ public class User implements UserDetails {
   @Override
   public String getPassword() {
     return password;
+  }
+
+  public Integer getFollowers() {
+    return followers;
+  }
+
+  public void setFollowers(Integer followers) {
+    this.followers = followers;
+  }
+
+  public Integer getFollowing() {
+    return following;
+  }
+
+  public void setFollowing(Integer following) {
+    this.following = following;
+  }
+
+  public String getMotto() {
+    return motto;
+  }
+
+  public void setMotto(String motto) {
+    this.motto = motto;
   }
 
   @Override
