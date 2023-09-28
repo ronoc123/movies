@@ -30,7 +30,7 @@ export default function Sidebar() {
         {[
           { text: "Profile", icon: <AccountCircleIcon />, link: "/profile" },
           { text: "Friends", icon: <GroupIcon />, link: "/friends" },
-          { text: "Messages", icon: <ForumIcon />, link: "/message" },
+          // { text: "Messages", icon: <ForumIcon />, link: "/message" },
           { text: "Home", icon: <HomeIcon />, link: "/" },
         ].map((item, index) => (
           <ListItemButton

@@ -1,7 +1,9 @@
 import React from "react";
 import Wrapper from "../assests/Wrappers/TierList";
+import { useAppContext } from "../Context/appContext";
 
 const TierList = () => {
+  const { movieTierList } = useAppContext();
   return (
     <Wrapper>
       <div className="ratings">

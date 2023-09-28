@@ -4,7 +4,7 @@ import Wrapper from "../assests/Wrappers/Profile";
 import FriendsList from "../components/FriendsList";
 import WatchList from "../components/WatchList";
 import { useAppContext } from "../Context/appContext";
-import UserCard from "../components/UserCard";
+import UserCard from "../components/User/UserCard";
 import BasicTabs from "../components/CustomTabPanel";
 import RatingModal from "../components/RatingModal";
 
@@ -19,7 +19,9 @@ const ProfilePage = () => {
   return (
     <Wrapper>
       <div className="profile-container">
-        <div></div>
+        <div>
+          <UserCard />
+        </div>
         <div className="mid">
           <BasicTabs />
         </div>

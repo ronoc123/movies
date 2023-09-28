@@ -5,14 +5,15 @@ import CancelIcon from "@mui/icons-material/Cancel";
 import { useAppContext } from "../Context/appContext";
 import { useState } from "react";
 
-const RatingModal = ({ id }) => {
-  const { closeRatingModal, rateMovie } = useAppContext();
+const RatingModal = () => {
+  const { closeRatingModal, rateMovie, movieRatingId } = useAppContext();
   const [rating, setRating] = useState();
 
   const handleSubmit = () => {
-    rateMovie(id, rating);
+    rateMovie(movieRatingId, rating);
     closeRatingModal();
   };
+
   return (
     <Wrapper>
       <div className="rating-main">

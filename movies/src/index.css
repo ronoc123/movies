@@ -4,7 +4,6 @@
   box-sizing: border-box;
   scroll-behavior: smooth;
 }
-
 :root {
   --icon-clr: #e2b616;
   /* fonts  */
@@ -14,7 +13,8 @@
   --extra-small-text: 0.7em;
   /* rest of the vars */
   --backgroundColor: #000;
-  --clr-grey: #2b2d31;
+  /* --clr-grey: #2b2d31; */
+  --clr-grey: #121212;
   --textColor: var(--grey-900);
   --borderRadius: 0.25rem;
   --letterSpacing: 1px;
@@ -55,6 +55,10 @@ a {
 ul {
   list-style-type: none;
   padding: 0;
+}
+
+.capitalize {
+  text-transform: capitalize;
 }
 
 ::-webkit-scrollbar {

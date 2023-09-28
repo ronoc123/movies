@@ -193,12 +193,14 @@ const reducer = (state, action) => {
     return {
       ...state,
       ratingModal: true,
+      movieRatingId: action.payload,
     };
   }
   if (action.type === CLOSE_RATING_MODAL) {
     return {
       ...state,
       ratingModal: false,
+      movieRatingId: null,
     };
   }
 

@@ -52,6 +52,8 @@ const initialState = {
   showAlert: false,
   isSidebarOpen: false,
   errorSnackBar: false,
+  movieRatingId: null,
+  movieTierList: [],
 };
 
 const AppContext = React.createContext();
@@ -239,8 +241,8 @@ const AppProvider = ({ children }) => {
     getWatchListMovies();
   };
 
-  const openRatingModal = () => {
-    dispatch({ type: OPEN_RATING_MODAL });
+  const openRatingModal = (id) => {
+    dispatch({ type: OPEN_RATING_MODAL, payload: id });
   };
   const closeRatingModal = () => {
     dispatch({ type: CLOSE_RATING_MODAL });
@@ -252,6 +254,8 @@ const AppProvider = ({ children }) => {
       dispatch({ type: CLOSE_ERROR_SNACKBAR });
     });
   };
+
+  const fetchTierList = async () => {};
 
   return (
     <AppContext.Provider
@@ -271,6 +275,7 @@ const AppProvider = ({ children }) => {
         closeRatingModal,
         rateMovie,
         errorSnackbarPopup,
+        fetchTierList,
       }}
     >
       {children}

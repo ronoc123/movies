@@ -11,7 +11,7 @@ import UserCard from "./UserCard";
 import FavoriteList from "./FavoriteList";
 
 const tabPanelStyle = {
-  background: "#2B2D31", // Set the background color to grey
+  background: "#121212", // Set the background color to grey
   color: "white", // Set the text color to white
 };
 
@@ -77,7 +77,7 @@ export default function BasicTabs() {
           onChange={handleChange}
           aria-label="basic tabs example"
         >
-          <Tab
+          {/* <Tab
             label={"Profile"}
             {...a11yProps(0)}
             style={{
@@ -85,7 +85,7 @@ export default function BasicTabs() {
               color: "white",
               fontSize: ".6em", // Text color for the tabs
             }}
-          />
+          /> */}
           <Tab
             label="Favorites"
             {...a11yProps(1)}
@@ -132,20 +132,20 @@ export default function BasicTabs() {
           )}
         </Tabs>
       </Box>
-      <CustomTabPanel value={value} index={0}>
+      {/* <CustomTabPanel value={value} index={0}>
         <UserCard />
-      </CustomTabPanel>
-      <CustomTabPanel value={value} index={1}>
+      </CustomTabPanel> */}
+      <CustomTabPanel value={value} index={0}>
         <FavoriteList />
       </CustomTabPanel>
-      <CustomTabPanel value={value} index={2}>
+      <CustomTabPanel value={value} index={1}>
         <TierList />
       </CustomTabPanel>
-      <CustomTabPanel value={value} index={3}>
+      <CustomTabPanel value={value} index={2}>
         <WatchList />
       </CustomTabPanel>
       {user && (
-        <CustomTabPanel value={value} index={4}>
+        <CustomTabPanel value={value} index={3}>
           Recommended
         </CustomTabPanel>
       )}

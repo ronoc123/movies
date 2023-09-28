@@ -28,8 +28,7 @@ const WatchListItem = ({
   handleClick,
   handleClose,
 }) => {
-  const { favoriteMovie, rateMovie, openRatingModal, ratingModal } =
-    useAppContext();
+  const { favoriteMovie, openRatingModal, ratingModal } = useAppContext();
 
   return (
     <Wrapper>
@@ -49,7 +48,7 @@ const WatchListItem = ({
           <div className="icon">
             <MdRemoveCircle />
           </div>
-          <div className="rating" onClick={() => openRatingModal()}>
+          <div className="rating" onClick={() => openRatingModal(id)}>
             {personalRating > 0 ? personalRating : "Rate"}
           </div>
         </div>
@@ -59,7 +58,7 @@ const WatchListItem = ({
           className="movie"
         />
       </div>
-      {ratingModal && <RatingModal id={id} />}
+      {ratingModal && <RatingModal />}
       <ErrorSimpleSnackbar
         open={open}
         handleClose={handleClose}
