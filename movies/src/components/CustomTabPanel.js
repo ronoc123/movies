@@ -7,7 +7,6 @@ import Box from "@mui/material/Box";
 import TierList from "./TierList";
 import WatchList from "./WatchList";
 import { useAppContext } from "../Context/appContext";
-import UserCard from "./UserCard";
 import FavoriteList from "./FavoriteList";
 
 const tabPanelStyle = {

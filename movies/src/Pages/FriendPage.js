@@ -2,16 +2,20 @@ import React from "react";
 import { useParams } from "react-router-dom";
 import { useAppContext } from "../Context/appContext";
 import { useEffect } from "react";
-import Wrapper from "../assests/Wrappers/FriendPage";
+import Wrapper from "../assests/Wrappers/Profile";
 import TierList from "../components/TierList";
 import FriendsList from "../components/FriendsList";
 import WatchList from "../components/WatchList";
+import BasicTabs from "../components/CustomTabPanel";
+import UserCard from "../components/User/UserCard";
+import ViewableCard from "../components/Friend/ViewableCard";
 
 const FriendPage = () => {
-  const { getTierListMovies } = useAppContext();
+  const { getFriendsMovies, getFriendsInfo } = useAppContext();
   const { id } = useParams();
   useEffect(() => {
-    getTierListMovies(id);
+    getFriendsMovies(id);
+    getFriendsInfo();
   }, []);
 
   // FIGURE OUT HOW TO GET THE PAGE PARAM TO LAOD SPECIFIC USERS DATA
@@ -20,14 +24,12 @@ const FriendPage = () => {
     <Wrapper>
       <div className="profile-container">
         <div>
-          <WatchList />
+          <ViewableCard />
         </div>
         <div className="mid">
-          <TierList />
+          <BasicTabs />
         </div>
-        <div>
-          <FriendsList />
-        </div>
+        <div>{/* <FriendsList /> */}</div>
       </div>
     </Wrapper>
   );

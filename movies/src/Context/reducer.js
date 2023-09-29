@@ -28,6 +28,9 @@ import {
   CLOSE_RATING_MODAL,
   CLOSE_ERROR_SNACKBAR,
   OPEN_ERROR_SNACKBAR,
+  GET_FRIEND_WATCHLIST_BEGIN,
+  GET_FRIEND_WATCHLIST_SUCCESS,
+  GET_FRIEND_WATCHLIST_ERROR,
 } from "./actions";
 
 const reducer = (state, action) => {
@@ -215,6 +218,26 @@ const reducer = (state, action) => {
     return {
       ...state,
       errorSnackBar: false,
+    };
+  }
+
+  if (action.type === GET_FRIEND_WATCHLIST_BEGIN) {
+    return {
+      ...state,
+      isLoading: true,
+    };
+  }
+  if (action.type === GET_FRIEND_WATCHLIST_SUCCESS) {
+    return {
+      ...state,
+      friendsWatchList: action.payload,
+      isLoading: false,
+    };
+  }
+  if (action.type === GET_FRIEND_WATCHLIST_ERROR) {
+    return {
+      ...state,
+      isLoading: false,
     };
   }
 

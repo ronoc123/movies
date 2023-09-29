@@ -34,6 +34,9 @@ import {
   CLOSE_RATING_MODAL,
   CLOSE_ERROR_SNACKBAR,
   OPEN_ERROR_SNACKBAR,
+  GET_FRIEND_WATCHLIST_BEGIN,
+  GET_FRIEND_WATCHLIST_SUCCESS,
+  GET_FRIEND_WATCHLIST_ERROR,
 } from "./actions.js";
 
 const token = localStorage.getItem("token");
@@ -54,6 +57,8 @@ const initialState = {
   errorSnackBar: false,
   movieRatingId: null,
   movieTierList: [],
+  friendsWatchList: [],
+  friend: null,
 };
 
 const AppContext = React.createContext();
@@ -254,8 +259,23 @@ const AppProvider = ({ children }) => {
       dispatch({ type: CLOSE_ERROR_SNACKBAR });
     });
   };
-
   const fetchTierList = async () => {};
+  const getFriendsTierList = async () => {};
+  const getFriendsInfo = async () => {};
+  const getFriendsMovies = async (id) => {
+    dispatch({ type: GET_FRIEND_WATCHLIST_BEGIN });
+
+    try {
+      const response = await authFetch.get(
+        `http://localhost:8080/api/v1/users/movies/${id}?size=50`
+      );
+      const { data } = response;
+
+      dispatch({ type: GET_FRIEND_WATCHLIST_SUCCESS, payload: data.content });
+    } catch (error) {
+      dispatch({ type: GET_FRIEND_WATCHLIST_ERROR });
+    }
+  };
 
   return (
     <AppContext.Provider
@@ -275,6 +295,10 @@ const AppProvider = ({ children }) => {
         closeRatingModal,
         rateMovie,
         errorSnackbarPopup,
+        fetchTierList,
+        getFriendsMovies,
+        getFriendsInfo,
+        getFriendsTierList,
         fetchTierList,
       }}
     >

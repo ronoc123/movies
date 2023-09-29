@@ -72,6 +72,7 @@ public class User implements UserDetails {
     return role.getAuthorities();
   }
 
+
   @Override
   public String getPassword() {
     return password;
@@ -128,6 +129,8 @@ public class User implements UserDetails {
   @PrePersist
   public void prePersist() {
     role = Role.USER;
+    followers = 0;
+    following = 0;
   }
 
   public Integer getId() {
@@ -173,4 +176,5 @@ public class User implements UserDetails {
   public void setRole(Role role) {
     this.role = role;
   }
+
 }
