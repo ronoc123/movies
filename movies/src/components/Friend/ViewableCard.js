@@ -16,7 +16,7 @@ const ViewableCard = () => {
         <div className="capitalize">
           {friend?.firstname} {friend?.lastname}
         </div>
-        <div>{friend?.motto ? friend?.motto : "Add Motto"}</div>
+        <div>{friend?.motto ? friend?.motto : ""}</div>
       </div>
       <div className="stat-con">
         <div className="stacked-item">

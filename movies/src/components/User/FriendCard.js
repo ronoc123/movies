@@ -5,7 +5,7 @@ import { CgProfile } from "react-icons/cg";
 import { useState } from "react";
 import { CgUserRemove } from "react-icons/cg";
 
-const FriendCard = ({ firstname, lastname, email, motto }) => {
+const FriendCard = ({ firstname, lastname, motto }) => {
   const [popup, setPopup] = useState(false);
   return (
     <div className="friend-container">

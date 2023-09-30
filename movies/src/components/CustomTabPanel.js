@@ -50,7 +50,7 @@ function a11yProps(index) {
 
 export default function BasicTabs() {
   const [value, setValue] = React.useState(0);
-  const { user, movieWatchList } = useAppContext();
+  const { user, movieWatchList, tierList } = useAppContext();
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -60,7 +60,7 @@ export default function BasicTabs() {
     <Box
       sx={{ width: "100%" }}
       style={{
-        marginBottom: "5rem",
+        marginBottom: "10rem",
       }}
     >
       <Box
@@ -76,15 +76,6 @@ export default function BasicTabs() {
           onChange={handleChange}
           aria-label="basic tabs example"
         >
-          {/* <Tab
-            label={"Profile"}
-            {...a11yProps(0)}
-            style={{
-              backgroundColor: "#2B2D31",
-              color: "white",
-              fontSize: ".6em", // Text color for the tabs
-            }}
-          /> */}
           <Tab
             label="Favorites"
             {...a11yProps(1)}
@@ -131,14 +122,12 @@ export default function BasicTabs() {
           )}
         </Tabs>
       </Box>
-      {/* <CustomTabPanel value={value} index={0}>
-        <UserCard />
-      </CustomTabPanel> */}
+
       <CustomTabPanel value={value} index={0}>
         <FavoriteList movieWatchList={movieWatchList} />
       </CustomTabPanel>
       <CustomTabPanel value={value} index={1}>
-        <TierList />
+        <TierList tierList={tierList} />
       </CustomTabPanel>
       <CustomTabPanel value={value} index={2}>
         <WatchList movieWatchList={movieWatchList} />

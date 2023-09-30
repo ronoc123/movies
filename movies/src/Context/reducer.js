@@ -284,6 +284,25 @@ const reducer = (state, action) => {
       isLoading: false,
     };
   }
+  if (action.type === GET_TIERLIST_BEGIN) {
+    return {
+      ...state,
+      isLoading: true,
+    };
+  }
+  if (action.type === GET_TIERLIST_SUCCESS) {
+    return {
+      ...state,
+      tierList: action.payload,
+      isLoading: false,
+    };
+  }
+  if (action.type === GET_TIERLIST_ERROR) {
+    return {
+      ...state,
+      isLoading: false,
+    };
+  }
 
   throw new Error(`No Matching "${action.type}" - action type`);
 };

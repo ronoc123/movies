@@ -50,7 +50,7 @@ function a11yProps(index) {
 
 export default function FriendCustomTabs() {
   const [value, setValue] = React.useState(0);
-  const { friendsWatchList } = useAppContext();
+  const { friendsWatchList, friendsTierList } = useAppContext();
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
@@ -59,7 +59,7 @@ export default function FriendCustomTabs() {
     <Box
       sx={{ width: "100%" }}
       style={{
-        marginBottom: "5rem",
+        marginBottom: "10rem",
       }}
     >
       <Box
@@ -75,15 +75,6 @@ export default function FriendCustomTabs() {
           onChange={handleChange}
           aria-label="basic tabs example"
         >
-          {/* <Tab
-            label={"Profile"}
-            {...a11yProps(0)}
-            style={{
-              backgroundColor: "#2B2D31",
-              color: "white",
-              fontSize: ".6em", // Text color for the tabs
-            }}
-          /> */}
           <Tab
             label="Favorites"
             {...a11yProps(1)}
@@ -117,14 +108,12 @@ export default function FriendCustomTabs() {
           />
         </Tabs>
       </Box>
-      {/* <CustomTabPanel value={value} index={0}>
-        <UserCard />
-      </CustomTabPanel> */}
+
       <CustomTabPanel value={value} index={0}>
         <FavoriteList movieWatchList={friendsWatchList} />
       </CustomTabPanel>
       <CustomTabPanel value={value} index={1}>
-        <TierList />
+        <TierList tierList={friendsTierList} />
       </CustomTabPanel>
       <CustomTabPanel value={value} index={2}>
         <WatchList movieWatchList={friendsWatchList} />

@@ -9,12 +9,12 @@ import BasicTabs from "../components/CustomTabPanel";
 import RatingModal from "../components/RatingModal";
 
 const ProfilePage = () => {
-  const { getWatchListMovies, getFriends, getTierListMovies } = useAppContext();
+  const { getWatchListMovies, getFriends, getTierList } = useAppContext();
 
   useEffect(() => {
     getWatchListMovies();
     getFriends();
-    getTierListMovies();
+    getTierList();
   }, []);
   return (
     <Wrapper>

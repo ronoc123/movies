@@ -62,7 +62,6 @@ const initialState = {
   isSidebarOpen: false,
   errorSnackBar: false,
   movieRatingId: null,
-  movieTierList: [],
   friendsWatchList: [],
   friend: null,
   friendsTierList: [],
@@ -207,22 +206,6 @@ const AppProvider = ({ children }) => {
     }
   };
 
-  const getTierListMovies = async (id) => {
-    dispatch({ type: GET_TIERLIST_BEGIN });
-
-    try {
-      const response = await axios(
-        `http://localhost:8080/api/v1/users/movies/rated/${id}`
-      );
-
-      const { data } = response;
-
-      dispatch({ type: GET_TIERLIST_SUCCESS, payload: data.content });
-    } catch (error) {
-      dispatch({ type: GET_TIERLIST_ERROR });
-    }
-  };
-
   const favoriteMovie = async (id) => {
     try {
       const { data } = await authFetch.put(
@@ -266,7 +249,6 @@ const AppProvider = ({ children }) => {
       dispatch({ type: CLOSE_ERROR_SNACKBAR });
     });
   };
-  const fetchTierList = async () => {};
   const getFriendsTierList = async (id) => {
     dispatch({ type: GET_FRIEND_TIERLIST_BEGIN });
 
@@ -295,7 +277,7 @@ const AppProvider = ({ children }) => {
 
       dispatch({
         type: GET_FRIEND_SUCCESS,
-        payload: data.content,
+        payload: data,
       });
     } catch (error) {
       dispatch({ type: GET_FRIEND_ERROR });
@@ -316,6 +298,24 @@ const AppProvider = ({ children }) => {
     }
   };
 
+  const getTierList = async () => {
+    dispatch({ type: GET_TIERLIST_BEGIN });
+
+    try {
+      const response = await authFetch.get(
+        `http://localhost:8080/api/v1/users/movies/rated/${state.user.id}?size=50`
+      );
+      const { data } = response;
+
+      dispatch({
+        type: GET_TIERLIST_SUCCESS,
+        payload: data.content,
+      });
+    } catch (error) {
+      dispatch({ type: GET_TIERLIST_ERROR });
+    }
+  };
+
   return (
     <AppContext.Provider
       value={{
@@ -328,17 +328,15 @@ const AppProvider = ({ children }) => {
         addFriend,
         deleteFriend,
         getWatchListMovies,
-        getTierListMovies,
         favoriteMovie,
         openRatingModal,
         closeRatingModal,
         rateMovie,
         errorSnackbarPopup,
-        fetchTierList,
         getFriendsMovies,
         getFriendsInfo,
         getFriendsTierList,
-        fetchTierList,
+        getTierList,
       }}
     >
       {children}
