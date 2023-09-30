@@ -122,6 +122,16 @@ public class MovieController {
         return movie;
     }
 
+    @GetMapping("/api/v1/users/info/{id}")
+    public User getFriendsInfo(@PathVariable int id) {
+        Optional<User> user = userRepository.findById(id);
+
+        if (user.isEmpty())
+            throw new RuntimeException("User not found");
+
+        return user.get();
+    }
+
 
 //    Delete from saved Movies
     @DeleteMapping("/api/v1/movie/{id}")

@@ -4,10 +4,10 @@ import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
-import TierList from "./TierList";
-import WatchList from "./WatchList";
-import { useAppContext } from "../Context/appContext";
-import FavoriteList from "./FavoriteList";
+import TierList from "../TierList";
+import WatchList from "../WatchList";
+import FavoriteList from "../FavoriteList";
+import { useAppContext } from "../../Context/appContext";
 
 const tabPanelStyle = {
   background: "#121212", // Set the background color to grey
@@ -48,10 +48,9 @@ function a11yProps(index) {
   };
 }
 
-export default function BasicTabs() {
+export default function FriendCustomTabs() {
   const [value, setValue] = React.useState(0);
-  const { user, movieWatchList } = useAppContext();
-
+  const { friendsWatchList } = useAppContext();
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
@@ -116,38 +115,20 @@ export default function BasicTabs() {
               // Text color for the tabs
             }}
           />
-          {user && (
-            <Tab
-              label="Recommended"
-              {...a11yProps(4)}
-              style={{
-                backgroundColor: "#2B2D31",
-                color: "white",
-                fontSize: ".6em",
-                // Text color for the tabs
-                // Text color for the tabs
-              }}
-            />
-          )}
         </Tabs>
       </Box>
       {/* <CustomTabPanel value={value} index={0}>
         <UserCard />
       </CustomTabPanel> */}
       <CustomTabPanel value={value} index={0}>
-        <FavoriteList movieWatchList={movieWatchList} />
+        <FavoriteList movieWatchList={friendsWatchList} />
       </CustomTabPanel>
       <CustomTabPanel value={value} index={1}>
         <TierList />
       </CustomTabPanel>
       <CustomTabPanel value={value} index={2}>
-        <WatchList movieWatchList={movieWatchList} />
+        <WatchList movieWatchList={friendsWatchList} />
       </CustomTabPanel>
-      {user && (
-        <CustomTabPanel value={value} index={3}>
-          Recommended
-        </CustomTabPanel>
-      )}
     </Box>
   );
 }

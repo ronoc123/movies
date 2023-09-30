@@ -6,10 +6,10 @@ import { useAppContext } from "../Context/appContext";
 import SingleModal from "./SingleModal";
 import axios from "axios";
 
-const FavoriteList = () => {
+const FavoriteList = ({ movieWatchList }) => {
   let key = process.env.REACT_APP_MOVIES_API;
 
-  const { movieWatchList } = useAppContext();
+  // const { movieWatchList } = useAppContext();
 
   const [singleMovie, setSingleMovie] = useState();
   const [showModal, setShowModal] = useState(false);

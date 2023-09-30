@@ -37,6 +37,12 @@ import {
   GET_FRIEND_WATCHLIST_BEGIN,
   GET_FRIEND_WATCHLIST_SUCCESS,
   GET_FRIEND_WATCHLIST_ERROR,
+  GET_FRIEND_SUCCESS,
+  GET_FRIEND_ERROR,
+  GET_FRIEND_BEGIN,
+  GET_FRIEND_TIERLIST_BEGIN,
+  GET_FRIEND_TIERLIST_SUCCESS,
+  GET_FRIEND_TIERLIST_ERROR,
 } from "./actions.js";
 
 const token = localStorage.getItem("token");
@@ -59,6 +65,7 @@ const initialState = {
   movieTierList: [],
   friendsWatchList: [],
   friend: null,
+  friendsTierList: [],
 };
 
 const AppContext = React.createContext();
@@ -260,8 +267,40 @@ const AppProvider = ({ children }) => {
     });
   };
   const fetchTierList = async () => {};
-  const getFriendsTierList = async () => {};
-  const getFriendsInfo = async () => {};
+  const getFriendsTierList = async (id) => {
+    dispatch({ type: GET_FRIEND_TIERLIST_BEGIN });
+
+    try {
+      const response = await authFetch.get(
+        `http://localhost:8080/api/v1/users/movies/rated/${id}?size=50`
+      );
+      const { data } = response;
+
+      dispatch({
+        type: GET_FRIEND_TIERLIST_SUCCESS,
+        payload: data.content,
+      });
+    } catch (error) {
+      dispatch({ type: GET_FRIEND_TIERLIST_ERROR });
+    }
+  };
+  const getFriendsInfo = async (id) => {
+    dispatch({ type: GET_FRIEND_BEGIN });
+
+    try {
+      const response = await authFetch.get(
+        `http://localhost:8080/api/v1/users/info/${id}`
+      );
+      const { data } = response;
+
+      dispatch({
+        type: GET_FRIEND_SUCCESS,
+        payload: data.content,
+      });
+    } catch (error) {
+      dispatch({ type: GET_FRIEND_ERROR });
+    }
+  };
   const getFriendsMovies = async (id) => {
     dispatch({ type: GET_FRIEND_WATCHLIST_BEGIN });
 

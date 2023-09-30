@@ -31,6 +31,12 @@ import {
   GET_FRIEND_WATCHLIST_BEGIN,
   GET_FRIEND_WATCHLIST_SUCCESS,
   GET_FRIEND_WATCHLIST_ERROR,
+  GET_FRIEND_SUCCESS,
+  GET_FRIEND_ERROR,
+  GET_FRIEND_BEGIN,
+  GET_FRIEND_TIERLIST_BEGIN,
+  GET_FRIEND_TIERLIST_SUCCESS,
+  GET_FRIEND_TIERLIST_ERROR,
 } from "./actions";
 
 const reducer = (state, action) => {
@@ -235,6 +241,44 @@ const reducer = (state, action) => {
     };
   }
   if (action.type === GET_FRIEND_WATCHLIST_ERROR) {
+    return {
+      ...state,
+      isLoading: false,
+    };
+  }
+  if (action.type === GET_FRIEND_BEGIN) {
+    return {
+      ...state,
+      isLoading: true,
+    };
+  }
+  if (action.type === GET_FRIEND_SUCCESS) {
+    return {
+      ...state,
+      friend: action.payload,
+      isLoading: false,
+    };
+  }
+  if (action.type === GET_FRIEND_ERROR) {
+    return {
+      ...state,
+      isLoading: false,
+    };
+  }
+  if (action.type === GET_FRIEND_TIERLIST_BEGIN) {
+    return {
+      ...state,
+      isLoading: true,
+    };
+  }
+  if (action.type === GET_FRIEND_TIERLIST_SUCCESS) {
+    return {
+      ...state,
+      friendsTierList: action.payload,
+      isLoading: false,
+    };
+  }
+  if (action.type === GET_FRIEND_TIERLIST_ERROR) {
     return {
       ...state,
       isLoading: false,
