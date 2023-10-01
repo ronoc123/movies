@@ -202,6 +202,13 @@ public class MovieController {
         if (movieToUpdate.isPresent()) {
             Movie movie = movieToUpdate.get();
             // Update the isWatched field to true
+
+
+            if (movie.getFavorited()) {
+                user.get().setFavorites(user.get().getFavorites() - 1);
+            } else {
+                user.get().setFavorites(user.get().getFavorites() + 1);
+            }
             movie.setFavorited(!movie.getFavorited());
             // Save the updated movie
             movieRepository.save(movie);

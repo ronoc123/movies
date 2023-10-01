@@ -20,11 +20,11 @@ const ViewableCard = () => {
       </div>
       <div className="stat-con">
         <div className="stacked-item">
-          <span className="number">355</span>
+          <span className="number">{friend?.following}</span>
           <span className="title">followers</span>
         </div>
         <div className="stacked-item">
-          <span className="number">355</span>
+          <span className="number">{friend?.followers}</span>
           <span className="title">following</span>
         </div>
         <div className="stacked-item end">

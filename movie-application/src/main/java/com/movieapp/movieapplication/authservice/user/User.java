@@ -43,6 +43,8 @@ public class User implements UserDetails {
 
   private Integer following;
 
+  private Integer favorites;
+
   @OneToMany(mappedBy = "user")
   @JsonIgnore
   private List<Token> tokens;
@@ -80,6 +82,14 @@ public class User implements UserDetails {
 
   public Integer getFollowers() {
     return followers;
+  }
+
+  public Integer getFavorites() {
+    return favorites;
+  }
+
+  public void setFavorites(Integer favorites) {
+    this.favorites = favorites;
   }
 
   public void setFollowers(Integer followers) {
@@ -131,6 +141,8 @@ public class User implements UserDetails {
     role = Role.USER;
     followers = 0;
     following = 0;
+    motto = "No description...";
+    favorites = 0;
   }
 
   public Integer getId() {

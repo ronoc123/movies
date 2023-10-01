@@ -20,15 +20,15 @@ const UserCard = () => {
       </div>
       <div className="stat-con">
         <div className="stacked-item">
-          <span className="number">355</span>
+          <span className="number">{user.followers}</span>
           <span className="title">followers</span>
         </div>
         <div className="stacked-item">
-          <span className="number">355</span>
+          <span className="number">{user.following}</span>
           <span className="title">following</span>
         </div>
         <div className="stacked-item end">
-          <span className="number">355</span>
+          <span className="number">{user.favorites}</span>
           <span className="title">favorites</span>
         </div>
       </div>

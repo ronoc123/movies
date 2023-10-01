@@ -39,6 +39,21 @@ public class FriendController {
         return userRepository.findFriendsByUserId(user.get().getId(), pageable);
     }
 
+    @GetMapping("/find/friends")
+    public Page<User> findNewFriends(@RequestParam(defaultValue = "0") int page,
+                                     @RequestParam(defaultValue = "20") int size,
+                                     @RequestParam(defaultValue = "id") String sortBy,
+                                     @RequestParam(required = false) String filter) {
+        Pageable pageable = PageRequest.of(page, size, Sort.by(sortBy));
+        if (filter != null && !filter.isEmpty()) {
+            // If a filter string is provided, use it to filter the results
+            return userRepository.findByUsernameContainingIgnoreCase(filter, pageable);
+        } else {
+            // If no filter is provided, return all users with pagination and sorting
+            return userRepository.findAll(pageable);
+        }
+    }
+
     @PostMapping("/addfriend/{id}")
     public ResponseEntity<String> AddFriend(@PathVariable int id, @RequestHeader("Authorization") String authorizationHeader) {
         String token = authorizationHeader.substring("Bearer ".length());
@@ -55,6 +70,9 @@ public class FriendController {
         }
 
         user.getFriends().add(friend);
+        user.setFollowing(user.getFollowing() + 1);
+        friend.setFollowers(friend.getFollowers() + 1);
+        userRepository.save(friend);
         userRepository.save(user);
 
         return ResponseEntity.ok("Friend added successfully");
@@ -83,6 +101,9 @@ public class FriendController {
 
         if (friends.contains(friendToRemove.get())) {
             friends.remove(friendToRemove.get());
+            user.get().setFollowing(user.get().getFollowing() - 1);
+            friendToRemove.get().setFollowers(friendToRemove.get().getFollowers() - 1);
+            userRepository.save(friendToRemove.get());
             userRepository.save(user.get());
             return ResponseEntity.ok("Friend removed successfully");
         } else {

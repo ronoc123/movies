@@ -43,6 +43,8 @@ import {
   GET_FRIEND_TIERLIST_BEGIN,
   GET_FRIEND_TIERLIST_SUCCESS,
   GET_FRIEND_TIERLIST_ERROR,
+  OPEN_SEARCH_BAR,
+  CLOSE_SEARCH_BAR,
 } from "./actions.js";
 
 const token = localStorage.getItem("token");
@@ -65,6 +67,7 @@ const initialState = {
   friendsWatchList: [],
   friend: null,
   friendsTierList: [],
+  showSearch: false,
 };
 
 const AppContext = React.createContext();
@@ -87,6 +90,13 @@ const AppProvider = ({ children }) => {
     localStorage.removeItem("token");
   };
 
+  const closeSearch = () => {
+    dispatch({ type: CLOSE_SEARCH_BAR });
+  };
+
+  const openSearch = () => {
+    dispatch({ type: OPEN_SEARCH_BAR });
+  };
   const userLogout = () => {
     dispatch({ type: LOGOUT_USER });
     removeUserFromLocalStorage();
@@ -111,12 +121,12 @@ const AppProvider = ({ children }) => {
           `http://localhost:8080/api/v1/auth/${endPoint}`,
           currentUser
         );
-        const { access_token } = response.data;
+        const { access_token, current_user } = response.data;
         dispatch({
           type: SETUP_USER_SUCCESS,
-          payload: { access_token: access_token, user: currentUser.email },
+          payload: { access_token: access_token, user: current_user },
         });
-        addUserToLocalStorage(currentUser.email, access_token);
+        addUserToLocalStorage(current_user, access_token);
       }
     } catch (error) {
       dispatch({ type: SETUP_USER_ERROR });
@@ -337,6 +347,8 @@ const AppProvider = ({ children }) => {
         getFriendsInfo,
         getFriendsTierList,
         getTierList,
+        openSearch,
+        closeSearch,
       }}
     >
       {children}

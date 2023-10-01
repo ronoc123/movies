@@ -18,6 +18,8 @@ import MoreIcon from "@mui/icons-material/MoreVert";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { useAppContext } from "../Context/appContext";
 import { useNavigate } from "react-router-dom";
+import SearchComponent from "./SearchComponent";
+import { useState } from "react";
 
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
@@ -72,7 +74,14 @@ export default function PrimarySearchAppBar() {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
 
-  const { userLogout, user, changeSidebar } = useAppContext();
+  const {
+    userLogout,
+    user,
+    changeSidebar,
+    showSearch,
+    openSearch,
+    closeSearch,
+  } = useAppContext();
 
   const toggleSidebar = () => {
     changeSidebar();
@@ -273,7 +282,15 @@ export default function PrimarySearchAppBar() {
                 color="inherit"
               >
                 <AccountCircle />
-                {/* <span>{user}</span> */}
+                <span
+                  style={{
+                    marginLeft: ".5rem",
+                    textTransform: "capitalize",
+                    fontSize: "1rem",
+                  }}
+                >
+                  {user.firstname}
+                </span>
               </IconButton>
             </Box>
             <Box sx={{ display: { xs: "flex", md: "none" } }}>
@@ -293,6 +310,7 @@ export default function PrimarySearchAppBar() {
         {renderMobileMenu}
         {renderMenu}
       </Box>
+      {showSearch && <SearchComponent />}
     </ThemeProvider>
   );
 }

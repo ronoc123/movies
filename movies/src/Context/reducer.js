@@ -37,6 +37,8 @@ import {
   GET_FRIEND_TIERLIST_BEGIN,
   GET_FRIEND_TIERLIST_SUCCESS,
   GET_FRIEND_TIERLIST_ERROR,
+  OPEN_SEARCH_BAR,
+  CLOSE_SEARCH_BAR,
 } from "./actions";
 
 const reducer = (state, action) => {
@@ -304,6 +306,19 @@ const reducer = (state, action) => {
     };
   }
 
+  if (action.type === OPEN_SEARCH_BAR) {
+    return {
+      ...state,
+      showSearch: true,
+    };
+  }
+
+  if (action.type === CLOSE_SEARCH_BAR) {
+    return {
+      ...state,
+      showSearch: false,
+    };
+  }
   throw new Error(`No Matching "${action.type}" - action type`);
 };
 

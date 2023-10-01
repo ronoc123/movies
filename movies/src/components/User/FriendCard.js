@@ -18,7 +18,7 @@ const FriendCard = ({ firstname, lastname, motto }) => {
             <span className="first-name capitalize">{firstname}</span>{" "}
             <span className="last-name capitalize">{lastname}</span>
           </div>
-          <div className="description">{motto}</div>
+          {/* <div className="description">{motto}</div> */}
         </div>
       </div>
       <div className="buttons">
