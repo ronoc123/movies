@@ -39,6 +39,8 @@ import {
   GET_FRIEND_TIERLIST_ERROR,
   OPEN_SEARCH_BAR,
   CLOSE_SEARCH_BAR,
+  FIND_FRIENDS_SUCCESS,
+  FIND_FRIENDS_ERROR,
 } from "./actions";
 
 const reducer = (state, action) => {
@@ -317,6 +319,26 @@ const reducer = (state, action) => {
     return {
       ...state,
       showSearch: false,
+    };
+  }
+
+  if (action.type === FIND_FRIENDS_SUCCESS) {
+    return {
+      ...state,
+      currentSearchResults: action.payload,
+    };
+  }
+
+  if (action.type === FIND_FRIENDS_ERROR) {
+    return {
+      ...state,
+      currentSearchResults: [],
+    };
+  }
+  if (action.type === "CLEAR_FRIENDS") {
+    return {
+      ...state,
+      currentSearchResults: [],
     };
   }
   throw new Error(`No Matching "${action.type}" - action type`);

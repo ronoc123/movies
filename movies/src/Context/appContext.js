@@ -45,6 +45,8 @@ import {
   GET_FRIEND_TIERLIST_ERROR,
   OPEN_SEARCH_BAR,
   CLOSE_SEARCH_BAR,
+  FIND_FRIENDS_SUCCESS,
+  FIND_FRIENDS_ERROR,
 } from "./actions.js";
 
 const token = localStorage.getItem("token");
@@ -68,6 +70,7 @@ const initialState = {
   friend: null,
   friendsTierList: [],
   showSearch: false,
+  currentSearchResults: [],
 };
 
 const AppContext = React.createContext();
@@ -326,6 +329,23 @@ const AppProvider = ({ children }) => {
     }
   };
 
+  const searchForMovies = async () => {};
+
+  const searchForUsers = async (value) => {
+    if (value === "") {
+      dispatch({ type: "CLEAR_FRIENDS" });
+    }
+    try {
+      const response = await authFetch.get(
+        `http://localhost:8080/api/v1/find/friends?filter=${value}`
+      );
+      const { data } = response;
+      dispatch({ type: FIND_FRIENDS_SUCCESS, payload: data.content });
+    } catch (error) {
+      dispatch({ type: FIND_FRIENDS_ERROR });
+    }
+  };
+
   return (
     <AppContext.Provider
       value={{
@@ -349,6 +369,8 @@ const AppProvider = ({ children }) => {
         getTierList,
         openSearch,
         closeSearch,
+        searchForMovies,
+        searchForUsers,
       }}
     >
       {children}

@@ -10,7 +10,7 @@ import java.util.Optional;
 public interface UserRepository extends JpaRepository<User, Integer> {
 
   Optional<User> findByEmail(String email);
-  Page<User> findByUsernameContainingIgnoreCase(String username, Pageable pageable);
+  Page<User> findByFirstnameStartingWithIgnoreCase(String username, Pageable pageable);
   @Query("SELECT u.friends FROM User u WHERE u.id = :userId")
   Page<User> findFriendsByUserId(Integer userId, Pageable pageable);
 

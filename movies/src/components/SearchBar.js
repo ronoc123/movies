@@ -73,6 +73,7 @@ export default function PrimarySearchAppBar() {
   const navigate = useNavigate();
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
+  const [search, setSearch] = useState("");
 
   const {
     userLogout,
@@ -81,6 +82,8 @@ export default function PrimarySearchAppBar() {
     showSearch,
     openSearch,
     closeSearch,
+    searchForMovies,
+    searchForUsers,
   } = useAppContext();
 
   const toggleSidebar = () => {
@@ -122,6 +125,17 @@ export default function PrimarySearchAppBar() {
     navigate("/login");
     setAnchorEl(null);
     handleMobileMenuClose();
+  };
+
+  const handleFocus = () => {
+    openSearch();
+  };
+  const handleUnfocus = () => {
+    closeSearch();
+  };
+
+  const handleSearch = (value) => {
+    searchForUsers(value);
   };
 
   const menuId = "primary-search-account-menu";
@@ -243,14 +257,20 @@ export default function PrimarySearchAppBar() {
             >
               Movie Hub
             </Typography>
-            <Search>
+            <Search onChange={(e) => handleSearch(e.target.value)}>
               <SearchIconWrapper>
                 <SearchIcon />
               </SearchIconWrapper>
               <StyledInputBase
                 placeholder="Search…"
                 inputProps={{ "aria-label": "search" }}
+                onFocus={handleFocus}
+                onBlur={handleUnfocus}
+                style={{
+                  position: "relative",
+                }}
               />
+              {showSearch && <SearchComponent />}
             </Search>
             <Box sx={{ flexGrow: 1 }} />
             <Box sx={{ display: { xs: "none", md: "flex" } }}>
@@ -289,7 +309,7 @@ export default function PrimarySearchAppBar() {
                     fontSize: "1rem",
                   }}
                 >
-                  {user.firstname}
+                  {user?.firstname}
                 </span>
               </IconButton>
             </Box>
@@ -310,7 +330,6 @@ export default function PrimarySearchAppBar() {
         {renderMobileMenu}
         {renderMenu}
       </Box>
-      {showSearch && <SearchComponent />}
     </ThemeProvider>
   );
 }

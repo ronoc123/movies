@@ -39,6 +39,8 @@ public class FriendController {
         return userRepository.findFriendsByUserId(user.get().getId(), pageable);
     }
 
+
+//    Find a list of possible new friends
     @GetMapping("/find/friends")
     public Page<User> findNewFriends(@RequestParam(defaultValue = "0") int page,
                                      @RequestParam(defaultValue = "20") int size,
@@ -47,7 +49,7 @@ public class FriendController {
         Pageable pageable = PageRequest.of(page, size, Sort.by(sortBy));
         if (filter != null && !filter.isEmpty()) {
             // If a filter string is provided, use it to filter the results
-            return userRepository.findByUsernameContainingIgnoreCase(filter, pageable);
+            return userRepository.findByFirstnameStartingWithIgnoreCase(filter, pageable);
         } else {
             // If no filter is provided, return all users with pagination and sorting
             return userRepository.findAll(pageable);
