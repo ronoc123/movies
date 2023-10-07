@@ -12,27 +12,31 @@ const Wrapper = styled.div`
   .person-container {
     padding: 1rem;
     display: grid;
-    grid-template-columns: 3rem 15rem 4rem;
+    grid-template-columns: 3rem 1fr;
     align-items: center;
     transition: var(--transition);
+    background: none;
+    border: none;
+    width: 100%;
+    cursor: pointer;
+    color: white;
+    gap: 1rem;
   }
   .icon {
     font-size: 1.5rem;
   }
   .text-container {
-    display: grid;
-    align-items: center;
+    text-align: left;
+
     text-transform: capitalize;
   }
-
   .profile-button {
-    background-color: #000000; /* Dark grey background color */
-    color: #fff; /* White text color */
-    border: 1px solid #333; /* Dark grey border */
-    padding: 5px 10px; /* Adjust padding as needed */
-    border-radius: 4px; /* Rounded corners */
-    cursor: pointer; /* Cursor style on hover */
-    transition: background-color 0.3s, color 0.3s; /* Smooth transition on hover */
+    background: black;
+    border: none;
+    color: white;
+    cursor: pointer;
+    padding: 0.5rem;
+    border-radius: 0.4rem;
   }
 `;
 

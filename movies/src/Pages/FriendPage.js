@@ -8,14 +8,14 @@ import ViewableCard from "../components/Friend/ViewableCard";
 import FriendCustomTabs from "../components/Friend/FriendCustomTabs";
 
 const FriendPage = () => {
-  const { getFriendsMovies, getFriendsInfo, getFriendsTierList } =
+  const { getFriendsMovies, getFriendsInfo, getFriendsTierList, friend } =
     useAppContext();
   const { id } = useParams();
   useEffect(() => {
     getFriendsMovies(id);
     getFriendsInfo(id);
     getFriendsTierList(id);
-  }, []);
+  }, [id]);
 
   // FIGURE OUT HOW TO GET THE PAGE PARAM TO LAOD SPECIFIC USERS DATA
 

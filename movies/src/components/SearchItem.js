@@ -6,26 +6,22 @@ import { useAppContext } from "../Context/appContext";
 const SearchItem = ({ id, firstname, lastname }) => {
   const navigate = useNavigate();
   const { user } = useAppContext();
-
   const handleClick = () => {
-    if (id === user?.id) {
+    if (user.id === id) {
       navigate("/profile");
     } else {
       navigate(`/user/${id}`);
     }
   };
   return (
-    <div className="person-container">
+    <button className="person-container" onMouseDown={handleClick}>
       <div className="icon">
         <CgProfile />
       </div>
       <div className="text-container">
         {firstname} {lastname}
       </div>
-      <button onMouseDown={handleClick} className="profile-button">
-        View Profile
-      </button>
-    </div>
+    </button>
   );
 };
 
