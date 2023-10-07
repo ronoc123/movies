@@ -97,6 +97,9 @@ const Wrapper = styled.div`
     grid-template-columns: 1fr 8fr;
     place-items: center;
   }
+  .follow-btn {
+    padding: 2rem;
+  }
 
   @media screen and (max-width: 1300px) {
     .main {

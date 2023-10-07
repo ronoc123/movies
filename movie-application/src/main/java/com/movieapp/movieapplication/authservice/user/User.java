@@ -45,8 +45,8 @@ public class User implements UserDetails {
 
   private Integer favorites;
 
-  @Lob
-  private byte[] profilePicture;
+
+  private String profilePicture;
 
   @OneToMany(mappedBy = "user")
   @JsonIgnore
@@ -83,11 +83,11 @@ public class User implements UserDetails {
     return password;
   }
 
-  public byte[] getProfilePicture() {
+  public String getProfilePicture() {
     return profilePicture;
   }
 
-  public void setProfilePicture(byte[] profilePicture) {
+  public void setProfilePicture(String profilePicture) {
     this.profilePicture = profilePicture;
   }
 

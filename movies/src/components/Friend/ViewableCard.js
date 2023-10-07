@@ -19,6 +19,7 @@ const ViewableCard = () => {
         <div>{friend?.motto ? friend?.motto : ""}</div>
       </div>
       <div className="stat-con">
+        <button className="follow-btn">Follow</button>
         <div className="stacked-item">
           <span className="number">{friend?.following}</span>
           <span className="title">followers</span>
@@ -28,7 +29,7 @@ const ViewableCard = () => {
           <span className="title">following</span>
         </div>
         <div className="stacked-item end">
-          <span className="number">355</span>
+          <span className="number">{friend?.favorites}</span>
           <span className="title">favorites</span>
         </div>
       </div>

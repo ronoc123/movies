@@ -24,6 +24,7 @@ const Wrapper = styled.div`
     font-size: 1.5rem;
     cursor: pointer;
   }
+
   .message {
     display: grid;
     place-items: center;

@@ -8,6 +8,8 @@ import TierList from "../TierList";
 import WatchList from "../WatchList";
 import FavoriteList from "../FavoriteList";
 import { useAppContext } from "../../Context/appContext";
+import FriendWatchList from "./FriendWatchList";
+import FriendFavoriteList from "./FriendFavoriteList";
 
 const tabPanelStyle = {
   background: "#121212", // Set the background color to grey
@@ -110,13 +112,13 @@ export default function FriendCustomTabs() {
       </Box>
 
       <CustomTabPanel value={value} index={0}>
-        <FavoriteList movieWatchList={friendsWatchList} />
+        <FriendFavoriteList movieWatchList={friendsWatchList} />
       </CustomTabPanel>
       <CustomTabPanel value={value} index={1}>
         <TierList tierList={friendsTierList} />
       </CustomTabPanel>
       <CustomTabPanel value={value} index={2}>
-        <WatchList movieWatchList={friendsWatchList} />
+        <FriendWatchList movieWatchList={friendsWatchList} />
       </CustomTabPanel>
     </Box>
   );
