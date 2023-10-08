@@ -10,7 +10,14 @@ const ViewableCard = () => {
   return (
     <Wrapper>
       <div className="img-con">
-        <FaUserCircle />
+        {friend?.profilePicture ? (
+          <img
+            src={`/api/users/${friend.id}/profile-picture/${friend.profilePicture}`}
+            alt="picture"
+          />
+        ) : (
+          <FaUserCircle />
+        )}
       </div>
       <div className="info-con">
         <div className="capitalize">

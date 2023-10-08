@@ -5,10 +5,16 @@ import com.movieapp.movieapplication.authservice.user.User;
 import com.movieapp.movieapplication.authservice.user.UserRepository;
 import com.movieapp.movieapplication.services.FileStorageService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.UrlResource;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
+import java.net.MalformedURLException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Optional;
 
 @RestController
@@ -17,6 +23,7 @@ public class UserController {
 
     private final JwtService jwtService;
     private final FileStorageService fileStorageService; // Service for storing files
+    private final String uploadDir = "C:\\Users\\conor\\Desktop\\movies\\movie-application\\uploads";
 
     @Autowired
     public UserController(UserRepository userService, FileStorageService fileStorageService, JwtService jwtService) {
@@ -46,5 +53,23 @@ public class UserController {
         userRepository.save(user.get());
 
         return ResponseEntity.ok("Profile picture uploaded successfully");
+    }
+
+    @GetMapping("/api/users/{userId}/profile-picture/{fileName:.+}")
+    public ResponseEntity<Resource> getUserProfilePicture(
+            @PathVariable Long userId,
+            @PathVariable String fileName) throws IOException {
+        try {
+            Path filePath = Paths.get(uploadDir).resolve(fileName);
+            Resource resource = new UrlResource(filePath.toUri());
+
+            if (resource.exists() && resource.isReadable()) {
+                return ResponseEntity.ok().body(resource);
+            } else {
+                return ResponseEntity.notFound().build();
+            }
+        } catch (MalformedURLException e) {
+            return ResponseEntity.notFound().build();
+        }
     }
 }

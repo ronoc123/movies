@@ -9,6 +9,10 @@ const Wrapper = styled.div`
     place-items: center;
     font-size: 7rem;
   }
+  img {
+    width: 100%;
+    height: 100%;
+  }
 
   .info-con {
     display: flex;

@@ -10,7 +10,14 @@ const UserCard = () => {
   return (
     <Wrapper>
       <div className="img-con">
-        <FaUserCircle />
+        {user?.profilePicture ? (
+          <img
+            src={`/api/users/${user.id}/profile-picture/${user.profilePicture}`}
+            alt="picture"
+          />
+        ) : (
+          <FaUserCircle />
+        )}
       </div>
       <div className="info-con">
         <div className="capitalize">
