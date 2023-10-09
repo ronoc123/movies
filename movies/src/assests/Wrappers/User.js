@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 const Wrapper = styled.div`
   display: grid;
-  grid-template-columns: 1fr 3fr 2fr;
+  grid-template-columns: 1fr 8fr 5fr;
   margin-bottom: 2rem;
   .img-con {
     display: grid;
@@ -12,6 +12,7 @@ const Wrapper = styled.div`
   img {
     width: 100%;
     height: 100%;
+    border-radius: 50%;
   }
 
   .info-con {
