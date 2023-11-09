@@ -17,24 +17,25 @@ export default function LoginForm() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    let currentUser = {
-      firstname: firstName,
-      password: password,
-      email: email,
-      lastname: lastName,
-    };
 
-    let endPoint = user === true ? "authenticate" : "register";
-    if (user) {
+    let endPoint = user === true ? "register" : "authenticate";
+    if (!user) {
       userLogin(endPoint, { email: email, password: password });
     } else {
       userLogin(endPoint, {
         firstname: firstName,
-        password: password,
-        email: email,
         lastname: lastName,
+        email: email,
+        password: password,
       });
     }
+  };
+  const [showPassword, setShowPassword] = React.useState(false);
+
+  const handleClickShowPassword = () => setShowPassword((show) => !show);
+
+  const handleMouseDownPassword = (event) => {
+    event.preventDefault();
   };
 
   useEffect(() => {
@@ -90,10 +91,10 @@ export default function LoginForm() {
       </div>
       <div>
         <TextField
-          id="outlined-multiline-flexible"
+          id="outlined-password-input"
           label="Password"
-          multiline
-          maxRows={4}
+          type="password"
+          autoComplete="current-password"
           onChange={(e) => setPassword(e.target.value)}
         />
       </div>

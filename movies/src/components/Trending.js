@@ -26,7 +26,6 @@ const Trending = () => {
       const { data } = await axios(
         `https://api.themoviedb.org/3/${mediaType}/${id}?api_key=${key}&language=en-US`
       );
-      console.log(data);
       setSingleMovie(data);
       setShowModal(true);
     } catch (error) {}
@@ -55,6 +54,7 @@ const Trending = () => {
                 backdrop={item.backdrop_path}
                 poster={item.poster_path}
                 id={item.id}
+                description={item.description}
                 showSingleMovie={showSingleMovie}
               />
             );

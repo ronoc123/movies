@@ -13,7 +13,7 @@ const Wrapper = styled.div`
 
   .nav-container {
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr;
     column-gap: 2rem;
     max-width: 30rem;
     place-items: center;

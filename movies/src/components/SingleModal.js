@@ -4,10 +4,12 @@ import { img_500, unavailable } from "../config/config";
 import { AiFillStar } from "react-icons/ai";
 import { useState, useEffect } from "react";
 import axios from "axios";
+import { useAppContext } from "../Context/appContext";
 
 const SingleModal = ({ setShowModal, singleMovie, type, showSingleMovie }) => {
   const [video, setVideo] = useState("");
   const [recommended, setRecommended] = useState([]);
+
   let key = process.env.REACT_APP_MOVIES_API;
 
   function numberWithCommas(x) {
@@ -18,6 +20,7 @@ const SingleModal = ({ setShowModal, singleMovie, type, showSingleMovie }) => {
   }
 
   async function fetchVideo() {
+    let errorOccured = false;
     try {
       const { data } = await axios.get(
         `https://api.themoviedb.org/3/${type ? type : "movie"}/${
@@ -28,7 +31,7 @@ const SingleModal = ({ setShowModal, singleMovie, type, showSingleMovie }) => {
         setVideo(data.results[0]?.key);
       }
     } catch (error) {
-      console.log(error);
+      // console.log(error);
     }
   }
   async function fetchRelated() {

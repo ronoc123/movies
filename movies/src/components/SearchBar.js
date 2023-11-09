@@ -18,6 +18,8 @@ import MoreIcon from "@mui/icons-material/MoreVert";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { useAppContext } from "../Context/appContext";
 import { useNavigate } from "react-router-dom";
+import SearchComponent from "./SearchComponent";
+import { useState } from "react";
 
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
@@ -71,8 +73,18 @@ export default function PrimarySearchAppBar() {
   const navigate = useNavigate();
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
+  const [search, setSearch] = useState("");
 
-  const { userLogout, user, changeSidebar } = useAppContext();
+  const {
+    userLogout,
+    user,
+    changeSidebar,
+    showSearch,
+    openSearch,
+    closeSearch,
+    searchForMovies,
+    searchForUsers,
+  } = useAppContext();
 
   const toggleSidebar = () => {
     changeSidebar();
@@ -93,6 +105,11 @@ export default function PrimarySearchAppBar() {
     setAnchorEl(null);
     handleMobileMenuClose();
   };
+  const handleMenuCloseProfile = () => {
+    setAnchorEl(null);
+    handleMobileMenuClose();
+    navigate("/profile");
+  };
 
   const handleMobileMenuOpen = (event) => {
     setMobileMoreAnchorEl(event.currentTarget);
@@ -108,6 +125,17 @@ export default function PrimarySearchAppBar() {
     navigate("/login");
     setAnchorEl(null);
     handleMobileMenuClose();
+  };
+
+  const handleFocus = () => {
+    openSearch();
+  };
+  const handleUnfocus = () => {
+    closeSearch();
+  };
+
+  const handleSearch = (value) => {
+    searchForUsers(value);
   };
 
   const menuId = "primary-search-account-menu";
@@ -128,16 +156,16 @@ export default function PrimarySearchAppBar() {
       onClose={handleMenuClose}
     >
       {user && (
-        <>
-          <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
-          <MenuItem onClick={handleMenuClose}>My account</MenuItem>
+        <div>
+          <MenuItem onClick={handleMenuCloseProfile}>My Profile</MenuItem>
+          {/* <MenuItem onClick={handleMenuClose}>My account</MenuItem> */}
           <MenuItem onClick={handleLogout}>Logout</MenuItem>
-        </>
+        </div>
       )}
       {!user && (
-        <>
+        <div>
           <MenuItem onClick={redirectUser}>Login</MenuItem>
-        </>
+        </div>
       )}
     </Menu>
   );
@@ -159,7 +187,7 @@ export default function PrimarySearchAppBar() {
       open={isMobileMenuOpen}
       onClose={handleMobileMenuClose}
     >
-      <MenuItem>
+      {/* <MenuItem>
         <IconButton size="large" aria-label="show 4 new mails" color="inherit">
           <Badge badgeContent={4} color="error">
             <MailIcon />
@@ -178,7 +206,7 @@ export default function PrimarySearchAppBar() {
           </Badge>
         </IconButton>
         <p>Notifications</p>
-      </MenuItem>
+      </MenuItem> */}
       <MenuItem onClick={handleProfileMenuOpen}>
         <IconButton
           size="large"
@@ -217,8 +245,9 @@ export default function PrimarySearchAppBar() {
               color="inherit"
               aria-label="open drawer"
               sx={{ mr: 2 }}
+              onClick={toggleSidebar}
             >
-              <MenuIcon onClick={toggleSidebar} />
+              <MenuIcon />
             </IconButton>
             <Typography
               variant="h6"
@@ -228,18 +257,24 @@ export default function PrimarySearchAppBar() {
             >
               Movie Hub
             </Typography>
-            <Search>
+            <Search onChange={(e) => handleSearch(e.target.value)}>
               <SearchIconWrapper>
                 <SearchIcon />
               </SearchIconWrapper>
               <StyledInputBase
                 placeholder="Search…"
                 inputProps={{ "aria-label": "search" }}
+                onFocus={handleFocus}
+                onBlur={handleUnfocus}
+                style={{
+                  position: "relative",
+                }}
               />
+              {showSearch && <SearchComponent />}
             </Search>
             <Box sx={{ flexGrow: 1 }} />
             <Box sx={{ display: { xs: "none", md: "flex" } }}>
-              <IconButton
+              {/* <IconButton
                 size="large"
                 aria-label="show 4 new mails"
                 color="inherit"
@@ -256,7 +291,7 @@ export default function PrimarySearchAppBar() {
                 <Badge badgeContent={17} color="error">
                   <NotificationsIcon />
                 </Badge>
-              </IconButton>
+              </IconButton> */}
               <IconButton
                 size="large"
                 edge="end"
@@ -267,7 +302,15 @@ export default function PrimarySearchAppBar() {
                 color="inherit"
               >
                 <AccountCircle />
-                {/* <span>{user}</span> */}
+                <span
+                  style={{
+                    marginLeft: ".5rem",
+                    textTransform: "capitalize",
+                    fontSize: "1rem",
+                  }}
+                >
+                  {user?.firstname}
+                </span>
               </IconButton>
             </Box>
             <Box sx={{ display: { xs: "flex", md: "none" } }}>
