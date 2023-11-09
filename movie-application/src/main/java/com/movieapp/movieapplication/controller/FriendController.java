@@ -11,8 +11,8 @@ import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import java.util.Optional;
-import java.util.Set;
+
+import java.util.*;
 
 @RestController
 @RequestMapping("/api/v1")
@@ -24,19 +24,41 @@ public class FriendController {
     @Autowired
     private JwtService jwtService;
     @GetMapping("/friends")
-    public Page<User> getAllFriends(@RequestHeader("Authorization") String authorizationHeader, @RequestParam(defaultValue = "0") int page,
-                                    @RequestParam(defaultValue = "10") int size,
-                                    @RequestParam(defaultValue = "id") String sortBy) {
-        Pageable pageable = PageRequest.of(page, size, Sort.by(sortBy));
+    public Map<String, Page<User>> getFriends(@RequestHeader("Authorization") String authorizationHeader,
+                                              @RequestParam(defaultValue = "0") int page,
+                                              @RequestParam(defaultValue = "10") int size,
+                                              @RequestParam(defaultValue = "id") String sortBy) {
+        // Extract the token from the authorization header
         String token = authorizationHeader.substring("Bearer ".length());
+
+        // Verify the token and extract user information
         String username = jwtService.extractUsername(token);
-        Optional<User> user = userRepository.findByEmail(username);
+        if (username == null) {
+            // Token is invalid; return unauthorized response
+            return Collections.singletonMap("error", null);
+        }
 
-        if (user.isEmpty())
-            throw new RuntimeException("No user found");
+        // Use the extracted username to retrieve the user's ID from your repository
+        Optional<User> userOptional = userRepository.findByEmail(username);
+        if (userOptional.isEmpty()) {
+            // User not found; return appropriate response
+            return Collections.singletonMap("error", null);
+        }
 
-//        return user.get().getFriends();
-        return userRepository.findFriendsByUserId(user.get().getId(), pageable);
+        Integer userId = userOptional.get().getId();
+
+        // Continue with retrieving friends using userId
+        Pageable pageable = PageRequest.of(page, size, Sort.by(sortBy));
+
+        // Retrieve the actual followers and following users
+        Page<User> followers = userRepository.findFollowerByUserId(userId, pageable);
+        Page<User> following = userRepository.findFollowingsByUserId(userId, pageable);
+
+        Map<String, Page<User>> result = new HashMap<>();
+        result.put("followers", followers);
+        result.put("following", following);
+
+        return result;
     }
 
 
@@ -61,23 +83,25 @@ public class FriendController {
         String token = authorizationHeader.substring("Bearer ".length());
         String username = jwtService.extractUsername(token);
         User user = userRepository.findByEmail(username).orElse(null);
-        User friend = userRepository.findById(id).orElse(null);
+        User targetUser = userRepository.findById(id).orElse(null);
 
-        if (friend == null || user == null) {
-            throw new RuntimeException("User or Friend Not Found!");
+        if (targetUser == null || user == null) {
+            throw new RuntimeException("User or Target User Not Found!");
         }
 
-        if (user.getFriends().contains(friend)) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("You are already friends with this user.");
+
+        if (user.getFollowings().contains(targetUser) || targetUser.getFollower().contains(user)) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("You are already following each other.");
         }
 
-        user.getFriends().add(friend);
+        user.getFollowings().add(targetUser);
         user.setFollowing(user.getFollowing() + 1);
-        friend.setFollowers(friend.getFollowers() + 1);
-        userRepository.save(friend);
+        targetUser.getFollower().add(user);
+        targetUser.setFollowers(targetUser.getFollowers() + 1);
+        userRepository.save(targetUser);
         userRepository.save(user);
 
-        return ResponseEntity.ok("Friend added successfully");
+        return ResponseEntity.ok("Followed successfully");
 
     }
 
@@ -99,17 +123,18 @@ public class FriendController {
             throw new RuntimeException("Friend not found");
         }
 
-        Set<User> friends = user.get().getFriends();
+        Set<User> following = user.get().getFollowings();
 
-        if (friends.contains(friendToRemove.get())) {
-            friends.remove(friendToRemove.get());
+        if (following.contains(friendToRemove.get())) {
+            following.remove(friendToRemove.get());
             user.get().setFollowing(user.get().getFollowing() - 1);
+            friendToRemove.get().getFollower().remove(user.get());
             friendToRemove.get().setFollowers(friendToRemove.get().getFollowers() - 1);
             userRepository.save(friendToRemove.get());
             userRepository.save(user.get());
-            return ResponseEntity.ok("Friend removed successfully");
+            return ResponseEntity.ok("Unfollowed successfully");
         } else {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Friend not found in your friends list");
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User not found in your following list");
         }
     }
 }

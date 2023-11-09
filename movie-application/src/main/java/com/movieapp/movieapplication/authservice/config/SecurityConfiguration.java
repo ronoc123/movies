@@ -36,6 +36,8 @@ public class SecurityConfiguration {
                 "/api/v1/auth/**",
                 "/api/v1/users/movies/rated/**",
                 "/api/v1/**",
+                "/api/v1/addfriend/{id}",
+                "/api/users/profile-picture",
                 "/api/v1/users/info/{id}",
                 "/api/users/{userId}/profile-picture/{fileName:.+}",
                 "/v2/api-docs",

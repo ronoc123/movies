@@ -107,7 +107,7 @@ export default function BasicTabs() {
               // Text color for the tabs
             }}
           />
-          {user && (
+          {/* {user && (
             <Tab
               label="Recommended"
               {...a11yProps(4)}
@@ -119,7 +119,7 @@ export default function BasicTabs() {
                 // Text color for the tabs
               }}
             />
-          )}
+          )} */}
         </Tabs>
       </Box>
 
@@ -132,11 +132,11 @@ export default function BasicTabs() {
       <CustomTabPanel value={value} index={2}>
         <WatchList movieWatchList={movieWatchList} />
       </CustomTabPanel>
-      {user && (
+      {/* {user && (
         <CustomTabPanel value={value} index={3}>
           Recommended
         </CustomTabPanel>
-      )}
+      )} */}
     </Box>
   );
 }

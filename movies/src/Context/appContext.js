@@ -58,7 +58,8 @@ const initialState = {
   token: token,
   alertText: "",
   alertType: "",
-  userFriends: [],
+  userFollowers: [],
+  userFollowing: [],
   movieWatchList: [],
   tierList: [],
   ratingModal: false,
@@ -167,40 +168,36 @@ const AppProvider = ({ children }) => {
       const response = await authFetch("http://localhost:8080/api/v1/friends");
 
       const { data } = response;
+      console.log(data);
 
-      dispatch({ type: GET_FRIENDS_SUCCESS, payload: data.content });
+      dispatch({ type: GET_FRIENDS_SUCCESS, payload: data });
     } catch (error) {
       dispatch({ type: GET_FRIENDS_ERROR });
     }
   };
 
   const addFriend = async (id) => {
-    dispatch({ type: ADD_FRIEND_BEGIN });
-
     try {
-      const { data } = await authFetch(
+      const { data } = await authFetch.post(
         `http://localhost:8080/api/v1/addfriend/${id}`
       );
-      dispatch({ type: ADD_FRIEND_SUCCESS, payload: data.content });
+
+      getFriends();
     } catch (error) {
-      dispatch({ type: ADD_FRIEND_ERROR });
+      console.log(error);
     }
   };
 
   const deleteFriend = async (id) => {
-    dispatch({ type: DELETE_FRIEND_BEGIN });
+    // dispatch({ type: DELETE_FRIEND_BEGIN });
 
     try {
       const response = await authFetch.delete(
         `http://localhost:8080/api/v1/friends/${id}`
       );
-
-      dispatch({
-        type: DELETE_FRIEND_SUCCESS,
-        payload: { friendList: state.userFriends, removeFriendId: id },
-      });
+      getFriends();
     } catch (error) {
-      dispatch({ type: DELETE_FRIEND_ERROR });
+      // dispatch({ type: DELETE_FRIEND_ERROR });
     }
   };
 
@@ -346,6 +343,51 @@ const AppProvider = ({ children }) => {
     }
   };
 
+  //  const authFetch = axios.create({
+  //    headers: {
+  //      Authorization: `Bearer ${state.token}`,
+  //    },
+  //  });
+
+  const updateUserImage = async (newInfo) => {
+    const file = newInfo;
+    const formData = new FormData();
+    formData.append("file", file);
+    console.log(formData);
+    try {
+      const updatedInfo = await axios.put(
+        "http://localhost:8080/api/users/profile-picture",
+        formData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      console.log(updatedInfo);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  const updateUserInfo = async (newInfo) => {
+    try {
+      const updatedInfo = await axios.put(
+        "http://localhost:8080/api/users/profile-picture",
+        newInfo,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      console.log(updatedInfo);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <AppContext.Provider
       value={{
@@ -371,6 +413,8 @@ const AppProvider = ({ children }) => {
         closeSearch,
         searchForMovies,
         searchForUsers,
+        updateUserInfo,
+        updateUserImage,
       }}
     >
       {children}

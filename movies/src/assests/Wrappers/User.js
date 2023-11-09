@@ -8,6 +8,7 @@ const Wrapper = styled.div`
     display: grid;
     place-items: center;
     font-size: 7rem;
+    /* margin-right: 1rem; */
   }
   img {
     width: 100%;
@@ -19,6 +20,7 @@ const Wrapper = styled.div`
     display: flex;
     flex-direction: column;
     justify-content: center;
+    margin-left: 1rem;
   }
   .stat-con {
     display: flex;

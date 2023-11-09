@@ -3,7 +3,6 @@ import { useParams } from "react-router-dom";
 import { useAppContext } from "../Context/appContext";
 import { useEffect } from "react";
 import Wrapper from "../assests/Wrappers/Profile";
-
 import ViewableCard from "../components/Friend/ViewableCard";
 import FriendCustomTabs from "../components/Friend/FriendCustomTabs";
 

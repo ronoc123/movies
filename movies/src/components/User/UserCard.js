@@ -8,13 +8,31 @@ import Modal from "@mui/material/Modal";
 import { FaUserCircle } from "react-icons/fa";
 import { useAppContext } from "../../Context/appContext";
 import ModeIcon from "@mui/icons-material/Mode";
+import { useState } from "react";
 
 const UserCard = () => {
-  const { user } = useAppContext();
+  const { user, friend, updateUserInfo, updateUserImage } = useAppContext();
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
+  const [firstName, setFirstName] = useState(user?.firstname);
+  const [lastName, setLastName] = useState(user?.lastname);
+  const [selectedImage, setSelectedImage] = useState(null);
+  const [motto, setMotto] = useState(user?.motto);
 
+  const handleImageChange = (e) => {
+    setSelectedImage(e.target.files[0]);
+  };
+
+  const handleFormSubmit = (e) => {
+    e.preventDefault();
+
+    // Call your updateUserProfile function to make the API request
+    updateUserImage(selectedImage);
+
+    // Close the modal
+    handleClose();
+  };
   return (
     <Wrapper>
       <div className="img-con">
@@ -96,26 +114,27 @@ const UserCard = () => {
               label="First Name"
               multiline
               maxRows={4}
+              value={firstName}
+              onChange={(e) => setFirstName(e.target.value)}
             />
             <TextField
               id="outlined-multiline-flexible"
               label="Last Name"
               multiline
               maxRows={4}
+              value={lastName}
+              onChange={(e) => setLastName(e.target.value)}
             />
-            <TextField
-              id="outlined-multiline-flexible"
-              label="Profile Picture"
-              multiline
-              maxRows={4}
-            />
+            <input type="file" onChange={handleImageChange} />
             <TextField
               id="outlined-multiline-static"
-              label="Multiline"
+              label="Motto"
               multiline
               rows={4}
-              defaultValue="Default Value"
+              value={motto}
+              onChange={(e) => setMotto(e.target.value)}
             />
+            <button onClick={handleFormSubmit}>submit</button>
           </div>
         </Box>
       </Modal>

@@ -90,7 +90,8 @@ const reducer = (state, action) => {
     return {
       ...state,
       isLoading: false,
-      userFriends: action.payload,
+      userFollowers: action.payload.followers.content,
+      userFollowing: action.payload.following.content,
     };
   }
 
@@ -339,6 +340,12 @@ const reducer = (state, action) => {
     return {
       ...state,
       currentSearchResults: [],
+    };
+  }
+
+  if (action.type === "ADD_FRIEND_SUCCESS") {
+    return {
+      ...state,
     };
   }
   throw new Error(`No Matching "${action.type}" - action type`);

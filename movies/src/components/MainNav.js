@@ -42,7 +42,7 @@ const MainNav = () => {
           </span>
           <span>Movies</span>
         </Link>
-        <Link
+        {/* <Link
           to={"/search"}
           className={active === 3 ? "link active" : "link"}
           onClick={() => setActive(3)}
@@ -51,7 +51,7 @@ const MainNav = () => {
             <BsSearch />
           </span>
           <span>Search</span>
-        </Link>
+        </Link> */}
       </div>
     </Wrapper>
   );

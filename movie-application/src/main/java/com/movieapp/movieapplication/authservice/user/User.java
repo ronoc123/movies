@@ -1,8 +1,8 @@
 package com.movieapp.movieapplication.authservice.user;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.movieapp.movieapplication.model.Movie;
 import com.movieapp.movieapplication.authservice.token.Token;
+import com.movieapp.movieapplication.model.Movie;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -11,10 +11,7 @@ import lombok.NoArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 @Data
 @Builder
@@ -57,19 +54,36 @@ public class User implements UserDetails {
 
   @ManyToMany
   @JoinTable(
-          name = "friendship",
-          joinColumns = @JoinColumn(name = "user_id"),
-          inverseJoinColumns = @JoinColumn(name = "friend_id")
+          name = "followers",
+          joinColumns = @JoinColumn(name = "follower_id"),
+          inverseJoinColumns = @JoinColumn(name = "user_id")
   )
   @JsonIgnore
-  private Set<User> friends = new HashSet<>();
+  private Set<User> follower = new HashSet<>();
 
-  public Set<User> getFriends() {
-    return friends;
+  @ManyToMany
+  @JoinTable(
+          name = "following",
+          joinColumns = @JoinColumn(name = "user_id"),
+          inverseJoinColumns = @JoinColumn(name = "follower_id")
+  )
+  @JsonIgnore
+  private Set<User> followings = new HashSet<>();
+
+  public Set<User> getFollower() {
+    return follower;
   }
 
-  public void setFriends(Set<User> friends) {
-    this.friends = friends;
+  public void setFollower(Set<User> follower) {
+    this.follower = follower;
+  }
+
+  public Set<User> getFollowings() {
+    return followings;
+  }
+
+  public void setFollowings(Set<User> followings) {
+    this.followings = followings;
   }
 
   @Override
@@ -105,6 +119,10 @@ public class User implements UserDetails {
 
   public void setFollowers(Integer followers) {
     this.followers = followers;
+  }
+  @Override
+  public int hashCode() {
+    return Objects.hash(id, email); // Or any other suitable unique properties
   }
 
   public Integer getFollowing() {
